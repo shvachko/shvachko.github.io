@@ -1,0 +1,21 @@
+[Fonts]
+iso-2022-jp = x-sjis
+x-euc-jp = x-sjis
+shift-jis = x-sjis
+
+x-sjis, ARIAL = ‚l‚r ‚oƒSƒVƒbƒN
+x-sjis, ARIAL BLACK = ‚l‚r ‚oƒSƒVƒbƒN
+x-sjis, ARIAL NARROW = ‚l‚r ‚oƒSƒVƒbƒN
+x-sjis, ARIAL ROUNDED BOLD = ‚l‚r ‚oƒSƒVƒbƒN
+x-sjis, BOOK ANTIQUA = ‚l‚r ‚o–¾’©
+x-sjis, BOOKMAN OLD STYLE = ‚l‚r ‚o–¾’©
+x-sjis, BRUSH SCRIPT MT = ‚l‚r ‚o–¾’©
+x-sjis, CENTURY GOTHIC = ‚l‚r ‚o–¾’©
+x-sjis, CENTURY SCHOOLBOOK = ‚l‚r ‚o–¾’©
+x-sjis, COMIC SANS MS = ‚l‚r ‚o–¾’©
+x-sjis, GARAMOND MT = ‚l‚r ‚o–¾’©
+x-sjis, HAETTENSCHWEILER = ‚l‚r ‚oƒSƒVƒbƒN
+x-sjis, IMPACT = ‚l‚r ‚oƒSƒVƒbƒN
+x-sjis, TIMES NEW ROMAN = ‚l‚r ‚o–¾’©
+x-sjis, TREBUCHET MS = ‚l‚r ‚oƒSƒVƒbƒN
+x-sjis, VERDANA = ‚l‚r ‚oƒSƒVƒbƒN

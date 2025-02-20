@@ -1,0 +1,805 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head><script src="//archive.org/includes/analytics.js?v=cf34f82" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app202.us.archive.org';v.server_ms=268;archive_analytics.send_pageview({});});</script><script type="text/javascript" src="/_static/js/playback.bundle.js?v=bQvHU8mx" charset="utf-8"></script>
+<script type="text/javascript" src="/_static/js/wombat.js?v=cRqOKCOw" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://developer.yahoo.net:80/blogs/hadoop/2010/06/enabling_hadoop_batch_processi_1.html","20100613143356","https://web.archive.org/","web","/_static/",
+	      "1276439636");
+</script>
+<link rel="stylesheet" type="text/css" href="/_static/css/banner-styles.css?v=wiOP2tld" />
+<link rel="stylesheet" type="text/css" href="/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="This is a unique Hadoop blog post.">
+<link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20100613143356cs_/http://l.yimg.com/a/combo?/yui/2.6.0/build/reset-fonts-grids/reset-fonts-grids.css&amp;/yui/2.6.0/build/menu/assets/skins/sam/menu.css&amp;/yui/2.6.0/build/button/assets/skins/sam/button.css&amp;/yui/2.6.0/build/container/assets/skins/sam/container.css&amp;/ydn/site/yui-2.6.0-treeview.css&amp;/ydn/site/ydn-116217.css&amp;">
+<link rel="apple-touch-icon" href="https://web.archive.org/web/20100613143356im_/http://l.yimg.com/a/i/ydn/ydn-iphone.png" type="image/png">
+<link rel="shortcut icon" href="https://web.archive.org/web/20100613143356im_/http://l.yimg.com/a/i/ydn/favicon2.ico" type="image/x-icon">
+
+<!--[if IE 6]>
+
+<style type="text/css" media="screen">
+#topAreaR p{margin:0;padding:0;}
+
+#headeraL{float:left;color:#9f9f9f;font-size:85%;}
+#searchFld{height:1.46em;border:1px solid #cecece;}
+#searchFld{margin:0;}
+#sub{position:relative;left:2px;}
+
+#headeraL{height:4em;}
+
+#subHIntCont{position:relative;top:0em;}
+
+#ydnNav{float:left;padding:0;top:1em;}
+.yuimenubaritemlabel{padding:0;}
+
+#headerSubSandbag {top:5.9em;}
+
+h4.fullHorange{width:98%;margin:0;}
+#recBlPst{width:18em;}
+#recBlPst3{width:17em;}
+#upcomingEventsBoxCont{width:17.7em;float:right;padding:0;}
+#upcomingEventsBox{float:right;margin:0}
+#upcomingEventsBox .blogRackTitle{margin-left:.3em;width:15em}
+#upcomingEventsBox .blogRackDate{margin-left:.67em;}
+
+#topFeaturedTabs ul li strong strong{background-color:#9dc1d6;}
+#topFeaturedTabs ul li strong strong strong{background-color:#9dc1d6;}
+#topFeaturedTabs ul li a:hover strong strong{background-color:#6fa4c3;}
+#topFeaturedTabs ul li a:hover strong strong strong{background-color:#6fa4c3;}
+
+.prefTabs{color:#aaa;float:left;position:relative;margin:.5em .8em 0em 2em;font-weight:bold;}
+#featureBox1, #featureBox2, #featureBox3, #featureBox4{border:1px solid #d9d9d9;}
+.innerSubMenuArea{border:1px solid #d9d9d9;}
+
+#breadcrumbs{position:relative;top:1.8em;}
+
+#getAppBox{border:1px solid #D9D9D9;}
+
+.recentPat{margin:0;margin-left:.3em;}
+#recentPatternsContainer {clear:both;float:left;}
+
+html body #doc4.yui-t7 #bd .yui-g .yui-gc div.first, .yui-gc div.first, .yui-gd .yui-g, .yui-gd .yui-u{width:67%;}
+html body #doc4.yui-t7 #bd .yui-g .yui-gb .yui-u, .yui-gb .yui-g, .yui-gb .yui-gb, .yui-gb .yui-gc, .yui-gb .yui-gd, .yui-gb .yui-ge, .yui-gb .yui-gf, .yui-gb .yui-u, .yui-gc .yui-u, .yui-gc .yui-g, .yui-gd .yui-u{width:29%;}
+html body #doc4.yui-t7 #bd .yui-g .yui-gb .yui-u, .yui-gb .yui-g, .yui-gb .yui-gb, .yui-gb .yui-gc, .yui-gb .yui-gd, .yui-gb .yui-ge, .yui-gb .yui-gf, .yui-gb .yui-u, .yui-gc .yui-u, .yui-gc .yui-g, .yui-gd .yui-u{margin-left:.5%;}
+
+</style>
+
+<![endif]-->
+<!--[if IE 7]>
+
+<style type="text/css" media="screen">
+#subHIntCont{position:relative;top:0;}
+#ydnNav{float:left;padding:.1em 0;position:relative;left:0;}
+#ydnNav .yuimenu .colGroup { margin-right: 1.5em;  }
+#breadcrumbs{position:relative;top:1.8em;}
+</style>
+
+<![endif]--><link rel="alternate" type="application/rss+xml" title="Blog RSS Feed" href="https://web.archive.org/web/20100613143356/http://feeds.developer.yahoo.net/YDNHadoop"/>
+  <link rel="start" href="http://developer.yahoo.com/blogs/hadoop/" title="Home"/>
+    <link rel="prev" href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/blogs/hadoop/2010/05/hadoop_summit_2010_agenda_is_a.html" title="Hadoop Summit 2010 - Agenda is available!"/>
+  
+  
+  <script type="text/javascript" language="javascript">
+<!--
+
+var HOST = 'developer.yahoo.com';
+
+// Copyright (c) 1996-1997 Athenia Associates.
+// http://www.webreference.com/js/
+// License is granted if and only if this entire
+// copyright notice is included. By Tomer Shiran.
+
+function setCookie (name, value, expires, path, domain, secure) {
+    var curCookie = name + "=" + escape(value) + (expires ? "; expires=" + expires : "") + (path ? "; path=" + path : "") + (domain ? "; domain=" + domain : "") + (secure ? "secure" : "");
+    document.cookie = curCookie;
+}
+
+function getCookie (name) {
+    var prefix = name + '=';
+    var c = document.cookie;
+    var nullstring = '';
+    var cookieStartIndex = c.indexOf(prefix);
+    if (cookieStartIndex == -1)
+        return nullstring;
+    var cookieEndIndex = c.indexOf(";", cookieStartIndex + prefix.length);
+    if (cookieEndIndex == -1)
+        cookieEndIndex = c.length;
+    return unescape(c.substring(cookieStartIndex + prefix.length, cookieEndIndex));
+}
+
+function deleteCookie (name, path, domain) {
+    if (getCookie(name))
+        document.cookie = name + "=" + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+}
+
+function fixDate (date) {
+    var base = new Date(0);
+    var skew = base.getTime();
+    if (skew > 0)
+        date.setTime(date.getTime() - skew);
+}
+
+function rememberMe (f) {
+    var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    now = now.toGMTString();
+    if (f.author != undefined)
+       setCookie('mtcmtauth', f.author.value, now, '/', '', '');
+    if (f.email != undefined)
+       setCookie('mtcmtmail', f.email.value, now, '/', '', '');
+    if (f.url != undefined)
+       setCookie('mtcmthome', f.url.value, now, '/', '', '');
+}
+
+function forgetMe (f) {
+    deleteCookie('mtcmtmail', '/', '');
+    deleteCookie('mtcmthome', '/', '');
+    deleteCookie('mtcmtauth', '/', '');
+    f.email.value = '';
+    f.author.value = '';
+    f.url.value = '';
+}
+
+//-->
+</script>
+  <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    rdf:about="http://developer.yahoo.com/blogs/hadoop/2010/06/enabling_hadoop_batch_processi_1.html"
+    trackback:ping="http://developer.yahoo.net/mt/mt-tb.cgi/416"
+    dc:title="Scalability of the Hadoop Distributed File System"
+    dc:identifier="http://developer.yahoo.com/blogs/hadoop/2010/06/enabling_hadoop_batch_processi_1.html"
+    dc:subject="Developer Note"
+    dc:description="At Yahoo!, the ability to analyze and process enormous amounts of data is increasingly important. It’s a foundational layer for improving our consumer experiences and for sharing audience insights with advertisers. In the last few years, I have been a..."
+    dc:creator="Dekel Tankel"
+    dc:date="2010-06-09T12:40:47-08:00" />
+</rdf:RDF>
+-->
+
+  <title>Scalability of the Hadoop Distributed File System (Hadoop and Distributed Computing at Yahoo!)</title>
+</head>
+
+<body style="margin: 0;">
+
+<div id="bodycontainer">
+
+    <div id="topMaxCont">
+        <div id="topContainer">
+            <div id="topIntCont">
+                <span id="topAreaL">
+                    <ul class="glblLinks">
+                        <li class="first"><a href="https://web.archive.org/web/20100613143356/http://www.yahoo.com/">Yahoo!</a></li>
+                        <li><a href="https://web.archive.org/web/20100613143356/http://my.yahoo.com/">My Yahoo!</a></li>
+                        <li><a href="https://web.archive.org/web/20100613143356/http://mail.yahoo.com/">Mail</a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div id="headerMaxCont">
+    <div id="headerMainSandbag"></div>
+    <div id="headerSubSandbag"></div>
+    <div id="headerContainer">
+        <span id="headeraL">
+            <a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/"><img src="https://web.archive.org/web/20100613143356im_/http://l.yimg.com/a/i/ydn/ydn-logo.gif" class="ydnLogo" height="53" width="408" alt="Yahoo! Developer Network"></a>
+        </span>
+    </div>
+</div>
+
+<div id="subHMaxCont">
+    <div id="subHContainer">
+        <div id="subHIntCont">
+            <div id="ydnNav" class="yuimenubar yuimenubarnav">  <!-- Start: main top nav -->
+                <div class="bd">
+                    <ul class="first-of-type">
+                        <li class="yuimenubaritem first-of-type">
+                            <a class="yuimenubaritemlabel" href="https://web.archive.org/web/20100613143356/https://developer.apps.yahoo.com/devtool/projects"><em>My Projects</em></a>
+                        </li>
+                        <li class="yuimenubaritem">
+                            <a class="yuimenubaritemlabel" href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/"><em>Services &amp; Tools<img src="https://web.archive.org/web/20100613143356im_/http://l.yimg.com/a/i/ydn/top-nav-arrow-off.gif" alt="" class="dropArrow"></em></a>
+                            <div class="yuimenu innerSubMenuArea">
+                                <div class="bd" style="_width: 25em; ">
+                                    <span class="x1"><span class="x1a"></span></span>
+                                    <span class="x2"><span class="x2a"></span></span>
+                                    <div class="colGroup">
+                                        <p class="subMenuH">Popular API<span class="lowerc">s</span></p>
+                                        <ul class="inner">
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/yap/">Application Platform (YAP)</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/yql/">Yahoo! Query Language (YQL)</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/social/">Profiles and Address Book</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/social/updates/">Updates activity stream</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/searchmonkey/">SearchMonkey&reg;</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/flickr/">Flickr&reg;</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/everything.html#apis"><strong>&raquo; View all API<span class="lowerc">s</span></strong></a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="colGroup last">
+                                        <p class="subMenuH">Popular Tools</p>
+                                        <ul>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/yui/">Yahoo! User Interface Library (YUI)</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/ypatterns/">Yahoo! Design Pattern Library</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/flash/">Flash and Flex Library (ASTRA)</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/yslow/">YSlow</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/hadoop/">Hadoop</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://pipes.yahoo.com/pipes/">Pipes</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/everything.html#tools"><strong>&raquo; View all tools</strong></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/"><em>Resources<img src="https://web.archive.org/web/20100613143356im_/http://l.yimg.com/a/i/ydn/top-nav-arrow-off.gif" alt="" class="dropArrow"></em></a>
+                            <div class="innerSubMenuArea yuimenu">
+                                <span class="x1"><span class="x1a"></span></span>
+                                <span class="x2"><span class="x2a"></span></span>
+                                <div class="bd" style="_width: 18em; ">
+                                    <div class="colGroup">
+                                        <ul>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.net/blog/">Blog</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.net/blogs/theater/">YDN Theater</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/hacku/">Hack U</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://github.com/yahoo/">Yahoo! on Github</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/"><em>Support<img src="https://web.archive.org/web/20100613143356im_/http://l.yimg.com/a/i/ydn/top-nav-arrow-off.gif" alt="" class="dropArrow"></em></a>
+                            <div class="innerSubMenuArea yuimenu">
+                                <span class="x1"><span class="x1a"></span></span>
+                                <span class="x2"><span class="x2a"></span></span>
+                                <div class="bd" style="_width: 18em; ">
+                                    <div class="colGroup last">
+                                        <ul>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/faq/">FAQs</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.net/forum/">Forums</a></li>
+                                            <li><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/register/">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>     <!-- end bd class -->
+            </div>
+        <!-- End: main top nav -->
+        </div>
+    </div>
+</div>
+
+    <div id="topDropMaxCont">
+        <div id="topDropContainer">
+            <div id="topDropIntCont">
+                <div id="breadcrumbs">
+                    <span class="bcString"><a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/">YDN</a></span>
+                    <span class="bcSep"></span>
+                    <span class="bcString"><a class="bcOn" href="/web/20100613143356/http://developer.yahoo.net/blogs/hadoop/">Hadoop and Distributed Computing at Yahoo!</a></span>
+                    <span class="bcSep"></span>
+                    <span class="bcString">Scalability of the Hadoop Distributed File System</span>
+                </div>
+
+           </div>
+        </div>
+    </div>
+<div id="mainCMaxCont">
+    <div id="mainCContainer">
+        <div id="mainCIntCont">
+            <div id="internalContainer">
+                <div id="doc4" class="yui-t6">
+                    <div id="bd">
+                        <div id="yui-main">
+                        <div class="yui-b">
+
+<h2 style="float: left; ">Yahoo! Developer Network Blog</h2>
+
+<p style="float: right; ">
+<a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/blogs/hadoop/2010/05/hadoop_summit_2010_agenda_is_a.html">&laquo; Previous</a> |
+
+<a href="https://web.archive.org/web/20100613143356/http://developer.yahoo.com/blogs/hadoop/">Main</a>
+
+</p>
+
+<br style="clear: both; ">
+
+<div class="blogPostContainer">
+<p class="blogPostDate">May 5, 2010</p>
+
+<h3>Scalability of the Hadoop Distributed File System</h3>
+
+<p>
+In his fictional story
+<!-- a HREF="http://jubal.westnet.com/hyperdiscordia/library_of_babel.html" -->
+<a HREF="https://en.wikipedia.org/wiki/The_Library_of_Babel">"The Library of Babel"</A>,
+<a HREF="https://en.wikipedia.org/wiki/Jorge_Luis_Borges">Jorge Luis Borges</A>
+describes a vast storage universe
+composed of all possible manuscripts uniformly formatted as
+410-page books. Most are random meaningless sequences of symbols.
+But the rest excitingly forms a complete and an indestructible
+knowledge system, which stores any text written in the past or to
+be written in the future, thus providing solutions to all problems
+in the world. Just find the right book.
+</p>
+<p>
+The same characteristic fascinates us in modern storage growth: The
+aggregation of information directly leads to proportional growth of
+new knowledge discovered out of it. A skeptic may doubt that
+further reward in knowledge mining will not justify the effort in
+information aggregation. What if by building sophisticated storage
+systems we are chasing the 19th century’s
+<!-- a HREF="http://www.uctc.net/access/30/Access%2030%20-%2002%20-%20Horse%20Power.pdf" -->
+<a HREF="https://en.wikipedia.org/wiki/Great_horse_manure_crisis_of_1894">
+horse manure problem</A>, when at the dawn of the automobile era the
+scientific world was preoccupied with the growth of the horse
+population that threatened to bury the streets of London nine feet
+deep in manure?
+</p>
+<p>
+The historical judgment will turn one way or another. In the
+meantime, we want to know how far we can go with existing systems
+even if only out of pure curiosity. In my
+<!-- a HREF="http://www.usenix.org/publications/login/2010-04/index.html" -->
+<a HREF="https://www.usenix.org/publications/login/april-2010-volume-35-number-2">
+USENIX ;login:</A></EM>
+article
+<!-- a HREF="http://www.usenix.org/publications/login/2010-04/openpdfs/shvachko.pdf" -->
+<a HREF="https://www.usenix.org/system/files/login/articles/1908-shvachko.pdf">
+“HDFS Scalability: the Limits to Growth,”</A>&nbsp;<wbr>I studied
+scalability and performance limitations imposed on a distributed
+file system by the single-node namespace server architecture. The
+study is based on experience with largest deployments of the
+<!-- a HREF="http://hadoop.apache.org/hdfs/index.html" -->
+<a HREF="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html">
+Hadoop Distributed File System (HDFS)</A>
+currently in production at Yahoo!.
+</p>
+<p>
+The first part of the study focuses on how the single name-server
+architecture limits the number of namespace objects (files and
+blocks) and how this translates to the limitation of the physical
+storage capacity growth.
+</p>
+<p>
+The second part explores the limits for linear performance growth
+of HDFS clusters bound by natural performance restrictions of a
+single namespace server. As the cluster grows, the linear increase
+in the demand for processing resources puts a higher workload on
+the single namespace server. When the workload exceeds a certain
+threshold, it saturates the server, turning it into a single-node
+bottleneck for linear scaling of the entire cluster.
+</p>
+<p>
+In 2006, the Hadoop group at Yahoo! formulated long-term target
+<!-- a HREF="http://wiki.apache.org/hadoop/DFS_requirements" -->
+<a HREF="https://cwiki.apache.org/confluence/display/HADOOP2/DFS+requirements">
+requirements</A>
+for HDFS and outlined a list of projects intended to bring the
+requirements to life. Table 1 summarizes the targets and compares
+them with the current achievements:
+</p>
+<center STYLE="color: rgb(51, 51, 51); font-family: arial, helvetica, clean, sans-serif; font-size: 13px; line-height: 16px; background-color: rgb(255, 255, 255);">
+<table BORDER="1" CELLSPACING="1" CELLPADDING="4" STYLE="page-break-inside: avoid; border-collapse: collapse; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; font-size: inherit; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; margin-top: 18px; margin-right: auto; margin-bottom: 18px; margin-left: auto; background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(241, 244, 246); padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; background-position: initial initial; background-repeat: initial initial;">
+<tbody>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+&nbsp;<wbr></TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Target</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Deployed</TD>
+</TR>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Capacity</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+10 PB</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+14 PB</TD>
+</TR>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Nodes</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+10,000</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+4,000</TD>
+</TR>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Clients</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+100,000</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+15,000</TD>
+</TR>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Files</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+100,000,000</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+60,000,000</TD>
+</TR>
+</TBODY>
+</TABLE>
+<b>Table 1: Targets for HDFS vs. actual deployed values as of 2009</B>
+</CENTER>
+<p>
+</p>
+<p>
+The bottom line is that we achieved the target in Petabytes and got
+close to the target in the number of files. But this is done with a
+smaller number of nodes and the need to support a workload close to
+100,000 clients has not yet materialized. The question now is
+whether the goals are feasible with the current system
+architecture.
+</p>
+
+<h3>Namespace Limitations</H3>
+<p>
+HDFS is based on an architecture where the namespace is decoupled
+from the data. The namespace forms the file system metadata, which
+is maintained by a dedicated server called the <em>name-node</EM>.
+The data itself resides on other servers
+called <em>data-nodes</EM>.
+</p>
+<p>
+The namespace consists of files and directories. Files are divided
+into large (128 MB) blocks. To provide data reliability, HDFS uses
+block replication. Each block by default is replicated to three
+data-nodes. Once the block is created its replication is maintained
+by the system automatically. The block copies are call <em>replicas</EM>.
+</p>
+<p>
+The name-node keeps the entire namespace in RAM. This architecture
+has a natural limiting factor: the memory size; that is, the number
+of namespace objects (files and blocks) the single namespace server
+can handle.
+</p>
+<p>
+<a HREF="https://issues.apache.org/jira/browse/HADOOP-1687">Estimates</A>
+show that the name-node uses less than 200 bytes to store a single
+metadata object (a file inode or a block). According to statistics
+on Y! clusters, a file on average consists of 1.5 blocks. Which
+means that it takes 600 bytes (1 file object + 2 block objects) to
+store an average file in name-node’s RAM
+</p>
+<p style="overflow:hidden;background:#eee;padding-top:10px;margin:.5em 0;padding:5px 10px 5px 10px;">
+To store 100 million files (referencing 200 million blocks), a
+name-node should have at least 60 GB of RAM.
+</p>
+<p>
+</p>
+
+<h3>Storage Capacity vs. Namespace Size</H3>
+<p>
+With 100 million files, each having an average of 1.5 blocks, we
+will have 200 million blocks in the file system. If the maximal
+block size is 128 MB and every block is replicated 3 times, then
+the total disk space required to store these blocks is about 60 PB.
+</p>
+<p style="overflow:hidden;background:#eee;padding-top:10px;margin:.5em 0;padding:5px 10px 5px 10px;">
+100 million file namespace needs 60 PB of total storage capacity on the cluster
+</p>
+<p>
+As a rule of thumb, the correlation between the representation of
+the metadata in RAM and physical storage space required to store
+data referenced by this namespace is:
+</p>
+<p style="overflow:hidden;background:#eee;padding-top:10px;margin:.5em 0;padding:5px 10px 5px 10px;">
+1 GB metadata ≈ 1 PB physical storage
+</p>
+<p>
+The rule should not be treated the same as, say, the
+<a HREF="https://mathworld.wolfram.com/PythagoreanTheorem.html">
+Pythagorean Theorem</A>,
+because the correlation depends on cluster parameters
+(the block to file ratio and the block size). But it can be used as
+a practical estimate for configuring cluster resources.
+</p>
+
+<h3 style="page-break-after: avoid;">Cluster Size and Node Configuration</H3>
+<p>
+Next we can estimate the number of data-nodes the cluster should
+have to accommodate the namespace of a certain size. On Yahoo’s
+clusters, data-nodes are usually equipped with four disk drives of
+size 0.75 &ndash; 1 TB, and configured to use 2.5 &ndash; 3.5 TB of that space
+per node. The remaining space is allocated for MapReduce transient
+data, system logs, and the OS.
+</p>
+<p>
+If we assume that an average data-node capacity is 3 TB, then we
+will need on the order of 20,000 nodes to store 60 PB of data. To
+keep it consistent with the target requirement of 10,000 nodes,
+each data-node should be configured with eight 1TB hard drives.
+</p>
+<p style="overflow:hidden;background:#eee;padding-top:10px;margin:.5em 0;padding:5px 10px 5px 10px;">
+To accommodate data referenced by a 100 million file namespace, a
+HDFS cluster needs 10,000 nodes equipped with 8TB of total hard
+drive capacity per node
+</p>
+<p>
+Note that these estimates are true under the assumption that the
+block per file ratio of 1.5 and the block size remain the same. If
+the ratio or the block size increases, a gigabyte of RAM will
+support more petabytes of physical storage and vice versa. Sadly,
+based on practical observations, the block to file ratio tends to
+decrease during the lifetime of a file system, meaning that the
+object count (and therefore the memory footprint) of a single
+namespace server grows faster than the physical data storage. That
+makes the object-count problem — which becomes file-count problem
+when the average file to block ratio is close to 1 — the real
+bottleneck for cluster scalability.
+</p>
+
+<h3>The Internal Load</H3>
+<p>
+Apart from the hierarchical namespace the name-node’s metadata
+includes a list of registered data-nodes, and a block to data-node
+mapping, which determines physical block locations.
+</p>
+<p>
+A data-node identifies block replicas in its possession to the
+name-node by sending block reports. The first block report is sent
+at the startup. It reveals the block locations, which otherwise are
+not known to the name-node at startup time. Subsequently, block
+reports are sent periodically every 1 hour by default and serve as
+a sanity check providing that the name-node has an up-to-date view
+of block replica distribution on the cluster.
+</p>
+<p>
+During normal operation, data-nodes periodically send heartbeats to
+the name-node to indicate that the data-node is alive. The default
+heartbeat interval is 3 seconds. If the name-node does not receive
+a heartbeat from a data-node in 10 minutes, it pronounces the
+data-node dead and schedules its blocks for replication on other nodes.
+</p>
+<p>
+The block reports and heartbeats form the internal load of the
+cluster. If the internal load is too high, the cluster becomes
+dysfunctional, able to process only a few, if any, external client
+operations such as ls, read, or write. The internal load depends on
+the number of data-nodes. Assuming that the cluster is built of
+10,000 data-nodes having 8 hard drives with 6 TB of effective
+storage capacity each, we estimate that the name-node will need to
+handle
+</p>
+<ul>
+<li>3 block reports per second, each reporting 60,000 replicas</LI>
+<li>10,000 heartbeats per second</LI>
+</UL>
+
+<p>
+Using the standard HDFS benchmark called NNThroughputBenchmark, we
+measure the actual name-node performance with respect to the two
+internal operations. Table 2 summarizes the results. Note that the
+block report throughput is measured in the number of blocks
+processed by the name-node per second.
+</p>
+
+<center STYLE="color: rgb(51, 51, 51); font-family: arial, helvetica, clean, sans-serif; font-size: 13px; line-height: 16px; background-color: rgb(255, 255, 255);">
+<table BORDER="1" CELLSPACING="1" CELLPADDING="4" STYLE="page-break-inside: avoid; border-collapse: collapse; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; font-size: inherit; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; margin-top: 18px; margin-right: auto; margin-bottom: 18px; margin-left: auto; background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(241, 244, 246); padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; background-position: initial initial; background-repeat: initial initial;">
+<tbody>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+&nbsp;<wbr></TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Throughput</TD>
+</TR>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Number of blocks processed in block reports per second</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+639,713</TD>
+</TR>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Number of heartbeats per second</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+300,000</TD>
+</TR>
+</TBODY>
+</TABLE>
+<b>Table 2: Block report and heartbeat throughput</B>
+</CENTER>
+<p>
+</p>
+<p>
+The implication of these results is:
+</p>
+<p style="overflow:hidden;background:#eee;padding-top:10px;margin:.5em 0;padding:5px 10px 5px 10px;">
+The internal load for block reports and heartbeat processing on a
+10,000 node HDFS cluster with the total storage capacity of 60 PB
+will consume 30% of the total name-node processing capacity.
+</p>
+<p>
+The internal load is proportional to the number of nodes in the
+cluster and the average number of blocks on a node. Thus, if a node
+had only 30,000 blocks — half of the estimated amount — then the
+name-node will dedicate only 15% of its processing resources to the
+internal load. Vice versa, if the average number of blocks per node
+grows, then the internal load will grow proportionally. The latter
+means that the decrease in block to file ratio (more small files
+with the same file system size) increases the internal load and
+therefore negatively affects the performance of the system.
+</p>
+
+<h3>Reasonable Load Expectations</H3>
+<p>
+We have learned by now that the name-node can use 70% of its time
+to process external client requests. Even with a handful of clients
+one can saturate the name-node performance by letting the clients
+send requests to the name-node with very high frequency. The
+name-node most probably would become unresponsive, potentially
+sending the whole cluster into a tailspin because internal load
+requests do not have priority over regular client requests.
+</p>
+<p>
+In practice, the extreme load bursts are uncommon. Regular Hadoop
+clusters run MapReduce jobs, and jobs perform conventional file
+reads or writes. To get or put data from or to HDFS, a client first
+accesses the name-node and receives block locations, and then
+directly talks to data-nodes to transfer file data. Thus the
+frequency of name-node requests is bound by the rate of data
+transfer from data-nodes.
+</p>
+Typically a map task of a MapReduce jobs reads one block of data.
+We estimate how much time it takes for a client to retrieve a block
+replica and, based on that, evaluate the expected read load on the
+name-node — namely, how many “get block location” requests the
+name-node should expect per second from 100,000 clients. We apply
+the same technique to evaluate the write load on the cluster.
+</P>
+
+<h3>Performance Limitations</H3>
+<p>
+The read and write throughputs have been
+<a HREF="http://developer.yahoo.net/blogs/hadoop/2008/09/scaling_hadoop_to_4000_nodes_a.html">
+measured</A> by the DFSIO benchmark and are summarized in <br/>Table 3.
+</p>
+<center STYLE="color: rgb(51, 51, 51); font-family: arial, helvetica, clean, sans-serif; font-size: 13px; line-height: 16px; background-color: rgb(255, 255, 255);">
+<table BORDER="1" CELLSPACING="1" CELLPADDING="4" STYLE="page-break-inside: avoid; border-collapse: collapse; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; font-size: inherit; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; margin-top: 18px; margin-right: auto; margin-bottom: 18px; margin-left: auto; background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(241, 244, 246); padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; background-position: initial initial; background-repeat: initial initial;">
+<tbody>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+&nbsp;<wbr></TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Throughput</TD>
+</TR>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Average read throughput</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+66 MB/s</TD>
+</TR>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Average write throughput</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+40 MB/s</TD>
+</TR>
+</TBODY>
+</TABLE>
+<b>Table 3: HDFS read and write throughput</B>
+</CENTER>
+<p>
+</p>
+
+<p>
+Another series of throughput results produced by
+NNThroughputBenchmark (Table 4) measures the number of open (the
+same as get block location) and create operations processed by the
+name-node per second:
+</p>
+<center STYLE="color: rgb(51, 51, 51); font-family: arial, helvetica, clean, sans-serif; font-size: 13px; line-height: 16px; background-color: rgb(255, 255, 255);">
+<table BORDER="1" CELLSPACING="1" CELLPADDING="4" STYLE="page-break-inside: avoid; border-collapse: collapse; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; font-size: inherit; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; margin-top: 18px; margin-right: auto; margin-bottom: 18px; margin-left: auto; background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(241, 244, 246); padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; background-position: initial initial; background-repeat: initial initial;">
+<tbody>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+&nbsp;<wbr></TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Throughput</TD>
+</TR>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Get block locations</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+126,119 ops/s</TD>
+</TR>
+<tr STYLE="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(217, 217, 217); border-right-color: rgb(217, 217, 217); border-bottom-color: rgb(217, 217, 217); border-left-color: rgb(217, 217, 217); border-image: initial;">
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+Create new block</TD>
+<td STYLE="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(205, 214, 217); border-right-color: rgb(205, 214, 217); border-bottom-color: rgb(205, 214, 217); border-left-color: rgb(205, 214, 217); border-image: initial; vertical-align: top; text-align: left;">
+5,600 ops/s</TD>
+</TR>
+</TBODY>
+</TABLE>
+<b>Table 4: Open and create throughput</B>
+</CENTER>
+<p>
+</p>
+<p>
+The read throughput in Table 3 indicates that 100,000 readers are
+expected to produce 68,750 get-block-location requests to the
+name-node per second. And Table 4 confirms that the name-node is
+able to process that many requests even if only 70% of its
+processing capacity is dedicated to this task.
+</p>
+
+<p style="overflow:hidden;background:#eee;padding-top:10px;margin:.5em 0;padding:5px 10px 5px 10px;">
+A 10,000 node HDFS cluster with the internal load at 30% will be
+able to handle an expected read-only load produced by 100,000 HDFS
+clients.
+</p>
+The write performance is not as optimistic. According to Table 3,
+100,000 writers are expected to provide an average load of 41,667
+create block requests per second on the name-node. This is way
+above 3,920 creates per second — 70% of possible processing
+capacity of the name-node (see Table 4).
+
+<p style="overflow:hidden;background:#eee;padding-top:10px;margin:.5em 0;padding:5px 10px 5px 10px;">
+A reasonably expected write-only load produced by 100,000 HDFS
+clients on a 10,000 node HDFS cluster will exceed the throughput
+capacity of a single name-node.
+</p>
+<p>
+We have seen that a 10,000-node HDFS cluster with single name-node
+is expected to handle a workload of 100,000 readers well. However,
+even 10,000 writers can produce enough workload to saturate the
+name-node, making it a bottleneck for linear scaling.
+</p>
+<p>
+Such a large difference in performance is attributed to
+get-block-locations (read workload) being a memory-only operation,
+while creates (write workload) requires journaling, which is
+bounded by the local hard drive performance.
+</p>
+<p>
+There are ways to improve the single name-node performance. But any
+solution intended for single namespace server optimization lacks scalability.
+</p>
+<p>
+Looking into the future — especially taking into account that the
+ratio of small files tend to grow — the most promising solutions
+seem to be based on distributing the namespace server itself both
+for workload balancing and for reducing the single server memory footprint.
+</p>
+<p>
+I hope you will benefit from the information provided above. Please
+refer to the
+<!-- a HREF="http://www.usenix.org/publications/login/2010-04/openpdfs/shvachko.pdf" -->
+<a HREF="https://www.usenix.org/system/files/login/articles/1908-shvachko.pdf">
+USENIX ;login:</A>
+article for more details.
+</p>
+
+<p style="overflow:hidden;background:#eee;padding-top:10px;margin:.5em 0;padding:15px 10px 5px 10px;border-top:1px solid #ccc;">
+Konstantin V. Shvachko<br>
+Principal software engineer, HDFS Team at Yahoo!</p><div style="clear:both"></div>
+</p>
+
+<p class="date">Posted at May 5, 2010 12:40 PM</p>
+
+<p style="margin-top: 1em; "><a href="https://hadoop.apache.org/">Hadoop</a> is a trademark of the <a href="https://www.apache.org/">Apache Software Foundation</a>.</p>
+
+<div>
+    <div id="footerLegal">
+        <p>Copyright &copy; 2010 Yahoo! Inc. All rights reserved.
+            <a href="https://info.yahoo.com/copyright/us/details.html" rel="nofollow">Copyright</a>
+            | <a href="https://info.yahoo.com/privacy/us/yahoo/devel/details.html" rel="nofollow">Privacy Policy</a>
+            | <a href="https://developer.yahoo.com/terms/">Terms of Use</a>
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

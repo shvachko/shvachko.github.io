@@ -1,0 +1,88 @@
+<html>
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+ <meta name="keywords" content="balanced tree, B-tree, btree, S(b)-tree, 
+                                s(b)tree, sbtree, variable length key, 
+                                treefs, tree file system, reiserfs, database, 
+                                db, starset, c, c++, VC, gnuc, gcc, djgpp, 
+                                linux, win32, windows, library, free, download,
+                                data structure">
+ <title>Balanced Trees</title>
+ <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+ <meta name="Microsoft Theme" content="nature 011, default">
+ <meta name="Microsoft Border" content="tb">
+</head>
+
+<body background="_themes/nature/nabkgnd.gif" bgcolor="#FFFFFF" text="#000000" link="#FF6600" vlink="#660099" alink="#00CC00"><!--mstheme--><font face="trebuchet ms"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><img src="_derived/balanced.htm_cmp_nature010_bnr.gif" width="600" height="60" border="0" alt="Balanced Trees"></p>
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><font face="Arial"><a href="Default.htm" style="color: rgb(0,0,255)">Home</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">PSI RAS</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">RCIS</a> | <a href="Default.htm" style="color: rgb(0,0,255)">S-Tree Lib</font></a></p>
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><!--msnavigation--><td valign="top">
+<!--webbot bot="Navigation" s-type="arrows" s-orientation="horizontal" s-rendering="text" b-include-home="FALSE" b-include-up="TRUE" startspan --><nobr>[ <a href="introduction.htm">Back</a> ]</nobr> <nobr>[ <a href="Default.htm">Up</a> ]</nobr> <nobr>[ <a href="b-trees.htm">Next</a> ]</nobr><!--webbot bot="Navigation" endspan i-checksum="40921" -->
+
+<ol start="2">
+  <li><font face="Courier New" size="3"><strong><big><b>Common properties of balanced trees.</b></big></strong></font></li>
+</ol>
+<font face="Courier New" size="2">
+
+<p align="JUSTIFY">In the theory of data structures the problem of index representation is
+known as the problem of <b>maintaining dynamic dictionaries</b>. A dynamic dictionary is a
+data structure for storing dictionary elements, called <b>keys</b>, together with
+algorithms of <b>search</b>, <b>insertion</b>, and <b>deletion</b> of the keys. Balanced
+trees are intended to provide for an efficient solution of the problem.</p>
+
+<p align="center"><img src="tree.jpg" alt="tree.jpg (14170 bytes)" width="649" height="145"></p>
+
+<p align="center">Fig.1. Balanced tree with numerical keys.</p>
+
+<p align="JUSTIFY"><font face="Courier New" size="2"><font face="Courier New" size="2">A
+balanced tree stores keys chosen from a finite set of keys <i>K</i>. The key set <i>K</i>
+is linearly ordered, and the keys are placed to the tree according to the ordering (see
+Fig.1). Each node of the tree contains a number of keys. Leaves don’t contain anything
+else, while the internal nodes additionally contain references to other nodes. A number of
+references in an internal node equals the number of keys in the node plus 1. An internal
+node <i>S</i> composed of <i>m</i> keys is denoted by</font></font></p>
+
+<p align="center"><em>S = (S<sub>0</sub>,k<sub>0</sub>,...,S<sub>i</sub>,k<sub>i</sub>,S<sub>i+1</sub>,...,k<sub>m-1</sub>,S<sub>m</sub>)</em></p>
+
+<p align="JUSTIFY">The following property of the nodes of the tree is the bases for an
+efficient tree searching. 
+
+<ol>
+  <i>
+  <li>For each key k<sub>i</sub> of the node all keys located at the sub-tree accessible via
+    the reference S<sub>i</sub> to the left of k<sub>i</sub> are less than k<sub>i</sub>, and
+    all keys located at the sub-tree accessible via the reference S<sub>i+1</sub> which is to
+    the right of k<sub>i</sub> are greater than k<sub>i</sub>.</li>
+  </i><p align="JUSTIFY">A balanced tree is organized such that</p>
+  <i>
+  <li>All paths in the tree from the root to a leaf have equal lengths.</i></li>
+</ol>
+
+<p align="JUSTIFY">Trees satisfying the above properties 1 and 2 are called <b>structured
+trees</b><i>.</i></p>
+
+<p align="JUSTIFY">A search algorithm is common for all structured trees. Starting from
+the root one should look for the given key <i>k</i> in a current node, and either find the
+key in the node or find a pair of adjacent keys <i>k<sub>i-1</i></sub>, and <i>k<sub>i</i></sub>
+such that <i>k<sub>i-1</sub> &lt; k &lt; k<sub>i</i></sub>, and continue searching in the
+sub-tree referenced by<i> S<sub>i</i></sub>.</font></p>
+
+<p align="center"><!--webbot bot="Navigation" s-type="siblings" s-orientation="horizontal" s-rendering="graphics" b-include-home="FALSE" b-include-up="FALSE" startspan --><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/introduction.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="introduction.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbp.gif"><param name="hoverImage" value="_themes/nature/nahbp.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/balanced.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/b-trees.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="b-trees.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/s(b)-trees.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="s(b)-trees.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/utilization.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="utilization.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/algorithms.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="algorithms.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/interface.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="interface.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/specs.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="specs.htm"><param name="bgColor" value="#ffffff"></applet><!--webbot bot="Navigation" endspan i-checksum="35854" --> 
+<!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<div align="center"><center>
+
+<address>
+  <font face="Courier New" size="2" color="#008000"><strong>Last update: 12/24/97 by</strong></font><br>
+  <font size="2"><a href="mailto:" style="color: rgb(0,0,255)">Konstantin
+  Shvachko: </a> </font>
+</address>
+</center></div>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--mstheme--></font></body>
+</html>

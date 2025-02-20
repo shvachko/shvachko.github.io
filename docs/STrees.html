@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Konstantin V. Shvachko: S-trees</title>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="header">
+<a href="#">Konstantin V. Shvachko</a>
+</div>
+
+<div id="menu">
+<a href="index.html">Home</a> &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="Hadoop.html">Hadoop</a> &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="Giraffa.html">Giraffa</a> &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="STrees.html">S-Trees</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<!-- a href="PointerMachines.html">Pointer Machines</a> &nbsp; &nbsp; &nbsp; &nbsp; -->
+<!-- a href="TreeFS.html">TreeFS</a> &nbsp; &nbsp; &nbsp; &nbsp; -->
+<a href="Publications.html">Publications</a>
+</div>
+
+<div id="sidebar">
+<h1>S-trees</h1>
+<a href="images/tree.jpg">
+<img src="images/tree.jpg" alt="" width="120" align="center"/></a>
+</div>
+
+<div id="main">
+
+<h2>Balanced Trees.</h2>
+
+<p>
+<em>Balanced trees</em> are traditionally used for indexing linearly ordered data, -
+a task also known as the problem of <em>maintaining dynamic dictionaries</em>.
+A number of balance conditions have been developed over time. 
+</p>
+
+<!-- Historically, first solutions to the problem were based on binary trees. -->
+
+<p>
+The first example of a balanced tree, an <em>AVL-tree</em>, was introduced in 1962 by 
+G.M.Adelson-Velskii and E.M.Landis. In 1970 J.Hopcroft developed <em>2-3-trees</em>.
+A generalization of the latter, called <em>B-trees</em>, was proposed by R.Bayer and E.McCreight in 1971.
+A number of variants of the classical B-trees have been examined in literature by now. 
+B*-trees, B+-trees, symmetric B-trees, and (a,b)-trees are among them.
+</p>
+
+<h2>The history of balanced trees.</h2>
+<UL>
+<LI>
+1962 &nbsp; &nbsp; &nbsp; 
+<a href="http://en.wikipedia.org/wiki/AVL_tree">AVL-tree</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+G.M.Adelson-Velskii and E.M.Landis 
+</LI>
+<LI>
+1970 &nbsp; &nbsp; &nbsp; 
+<a href="http://en.wikipedia.org/wiki/2-3_tree">2-3-tree</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+J.Hopcroft
+</LI>
+<LI>
+1971 &nbsp; &nbsp; &nbsp; 
+<a href="http://en.wikipedia.org/wiki/B_tree">B-tree</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+R.Bayer, E.McCreight
+</LI>
+<LI>
+1971 &nbsp; &nbsp; &nbsp; 
+<a href="http://en.wikipedia.org/wiki/Red-black_tree">red-black-tree</a> &nbsp;
+R.Bayer
+</LI>
+<LI>
+B*-tree, &nbsp; B+tree, &nbsp; (a,b)-tree
+</LI>
+<LI>
+1992 &nbsp; &nbsp; &nbsp; 
+<a href="docs/s1tree.pdf">S(1)-tree</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+utilization 1/2 - &epsilon;
+</LI>
+<LI>
+1994 &nbsp; &nbsp; &nbsp; 
+<a href="docs/s2tree.pdf">S(2)-tree</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+utilization 2/3 - &epsilon;
+</LI>
+<LI>
+1995 &nbsp; &nbsp; &nbsp; 
+<a href="docs/amcs04.pdf">S(b)-tree</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+utilization 1 - &epsilon;
+</LI>
+</UL>
+
+<p>
+Various <em>balance conditions</em> used in balanced trees are intended to 
+provide fast logarithmic time access to the data.
+</p>
+<p>
+<em>Utilization</em> characterizes the space overhead of storing data in a 
+particular type of balanced trees.
+Utilization is defined as the ratio of the size of the original data to
+the space used to represent the data set as a balanced tree.
+</p>
+<p>
+The main disadvantage of B-trees is that they provide poor utilization, 
+when used to store variable length keys, e.g. strings. 
+If the average length of keys stored in a B-tree is substantially smaller 
+than the key length maximum, then it is not possible to guarantee any 
+lower bound for utilization of B-trees greater than 0, even though that 
+the number of elements in the tree is always more than a half of its capacity.
+</p>
+
+<h2>
+<a href="Publications.html#STrees">
+S(b)-tree is a generalization of B-trees.</a>
+</h2>
+<p>
+A new type of balanced trees, called S(b)-trees, was developed in order 
+to efficiently maintain variable length keys.
+ Contrary to B-trees, S(b)-trees provide optimal utilization 
+ of keys of variable length, while the data access time remains 
+ logarithmic, the same as for B-trees.
+ The difference with B-trees
+ is that a node capacity for S(b)-trees is evaluated by the total length
+ of keys stored in the node, rather than by their number as in B-trees.
+ The balance condition for S(b)-trees is based on their local incompressibility. 
+ That is, any sequence consisting of b+1 neighboring nodes of the 
+ tree cannot be compressed into b well-formed nodes. 
+</p>
+
+<a href="docs/amcs04-slides.pdf">
+This is the summary of results proven for S(b)-trees:</a>
+<UL>
+<LI>  S(b)-tree is a generalization of B-trees:
+       a B-tree is a special case of a S(0)-tree.
+<LI>  The lower bound of utilization for S(b)-trees is 1 - &epsilon;,
+       where &epsilon; is inversely proportional to the tree branching.
+<LI>  Search, insertion, and deletion of a key in a n-node S(b)-tree
+  can be performed in time O(log n).
+<LI>  S(b)-trees form a shrinking hierarchy by parameter b.
+       That is if b < b' then the class of S(b')-trees is strictly
+       contained in the class of S(b)-trees.
+</UL>
+
+<p>
+<a href="stree/Default.htm">
+See my old site, which describes an implementation of a S(b)-tree library.</a>
+</p>
+
+</div>
+
+<div id="footer">
+2025 @ shv
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,378 @@
+<html>
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+ <meta name="keywords" content="balanced tree, B-tree, btree, S(b)-tree, 
+                                s(b)tree, sbtree, variable length key, 
+                                treefs, tree file system, reiserfs, database, 
+                                db, starset, c, c++, VC, gnuc, gcc, djgpp, 
+                                linux, win32, windows, library, free, download,
+                                data structure">
+ <title>Specifications</title>
+ <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+ <meta name="Microsoft Theme" content="nature 011, default">
+ <meta name="Microsoft Border" content="tb">
+</head>
+
+<body background="_themes/nature/nabkgnd.gif" bgcolor="#FFFFFF" text="#000000" link="#FF6600" vlink="#660099" alink="#00CC00"><!--mstheme--><font face="trebuchet ms"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><img src="_derived/specs.htm_cmp_nature010_bnr.gif" width="600" height="60" border="0" alt="Specifications"></p>
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><font face="Arial"><a href="Default.htm" style="color: rgb(0,0,255)">Home</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">PSI RAS</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">RCIS</a> | <a href="Default.htm" style="color: rgb(0,0,255)">S-Tree Lib</font></a></p>
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><!--msnavigation--><td valign="top">
+<!--webbot bot="Navigation" s-type="arrows" s-orientation="horizontal" s-rendering="text" b-include-home="FALSE" b-include-up="TRUE" startspan --><nobr>[ <a href="interface.htm">Back</a> ]</nobr> <nobr>[ <a href="Default.htm">Up</a> ]</nobr><!--webbot bot="Navigation" endspan i-checksum="22613" --> 
+
+<ol start="8">
+  <b>
+  <li><font face="Courier New" size="3"><strong><big>The specifications.</big></strong></font>
+    </b></li>
+</ol>
+<font face="Courier New" size="2">
+
+<p align="JUSTIFY">Let <i>T</i> be a structured tree and <i>S</i> be its node.</p>
+
+<p align="JUSTIFY">Below we present a list of variables, and instrumental procedures that
+will be used for description of the algorithms. 
+
+<ol>
+  <li><b>Denotations and definitions.</b></li>
+  <p align="JUSTIFY">With respect to the current node <i>S</i> a sweep</p>
+  <p align="CENTER"><i>&lt;L<sub>b-1</sub>,l<sub>b-1</sub>,…,L<sub>0</sub>,l<sub>0</sub>,S,r<sub>0</sub>,R<sub>0</sub>,…,r<sub>b-1</sub>,R<sub>b-1</sub>&gt;</i></p>
+  <p align="JUSTIFY">composed of <i>b</i> neighbors and their delimiting keys to the left
+  and to the right of <i>S </i>is called the <b>vicinity of<i> </b>S</i>, where<!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>S</i> is the current node;<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>L<sub>i</i></sub> denotes the i-th left neighbor of <i>S</i>;<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>R<sub>i</sub> </i>denotes the i-th right neighbor of <i>S</i>;<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>l<sub>i</i></sub> is the delimiting key of nodes <i>L<sub>i</i></sub> and <i>L<sub>i-1</i></sub>;<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>r<sub>i</i></sub> is the delimiting key of nodes <i>R<sub>i</i></sub> and <i>R<sub>i-1</i></sub>.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>F</i> denotes the direct parent of <i>S</i>.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>FL<sub>i</sub> </i>(<i>FR<sub>i</i></sub>) denotes the parent of node <i>L<sub>i</sub>
+      </i>(<i>R<sub>i</i></sub>).<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>Fl<sub>i</sub> </i>(<i>Fr<sub>i</i></sub>) denotes the node containing the delimiting
+      key <i>l<sub>i</sub> </i>(<i>r<sub>i</i></sub>).<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>L<sub>i</sub>, l<sub>i</sub>, R<sub>i</sub>, r<sub>i</sub>, FL<sub>i</sub>, FR<sub>i</sub>,
+      Fl<sub>i</sub>, Fr<sub>i</sub> </i>are the local variables of the procedures.<i> </i><!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--></table>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>WW(S)</i> means that <i><font face="Symbol" size="2">M</font>(S) &lt;= p</i><!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms">WC(S) means that <i>|S| &gt;= q</i><!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>WF(S)</i> means that <i>WW(S)</i> and <i>WC(S)</i> <!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>IC(<font face="Symbol" size="2">s</font>)</i> means that sweep <i><font face="Symbol" size="2">s</font> </i>is incompressible<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>WB(<font face="Symbol" size="2">s</font>)</i> means that <i>IC(<font face="Symbol" size="2">s</font>) </i>for any sweep <i><font face="Symbol" size="2">s</font></i>of length
+      <i>b</i> containing <i>S</i><!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>Sweep<sub>b</sub><sup>m</sup>(S)</i> denotes the <i>m</i>-th (<i>m = 0,…,b</i>)
+      sweep of length <i>b</i> containing node <i>S</i>, namely<br>
+      <i>Sweep<sub>b</sub><sup>0</sup>(S)</i> <i>= &lt;L<sub>b-1</sub>,l<sub>b-1</sub>,…,L<sub>0</sub>,l<sub>0</sub>,S&gt;<br>
+      Sweep<sub>b</sub><sup>b</sup>(S)</i> <i>= &lt;S,r<sub>0</sub>,R<sub>0</sub>,…,r<sub>b-1</sub>,R<sub>b-1</sub>&gt;</i><br>
+      <i>Sweep<sub>b</sub><sup>m</sup>(S)</i> <i>= &lt;L<sub>b-m-1</sub>,l<sub>b-m-1</sub>,…,L<sub>0</sub>,l<sub>0</sub>,S,r<sub>0</sub>,R<sub>0</sub>,…,r<sub>m-1</sub>,R<sub>m-1</sub>&gt;</i>
+    <!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--></table>
+  <li><b>Instrumental procedures.</b></li>
+  <p align="JUSTIFY">The following procedures and functions are used for describing the
+  algorithms. <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>Search(T,k)</i> given a S(b)-tree <i>T</i> and key <i>k</i> verifies whether the key
+      is contained in the tree. The result of the function is (<i>BoolValue, S, k<sub>i</i></sub>).
+      <i>BoolValue</i> is a Boolean variable that specifies whether <i>k</i> is found in the
+      tree or not. <i>S</i> is the node that was visited last while searching in the tree, and <i>k<sub>i</i></sub>
+      is the minimal key of <i>S</i> that is greater than or equal to the given key <i>k</i>.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>MakeVicinity(S)</i> initializes the local variables <i>L<sub>i</sub>, l<sub>i</sub>,
+      R<sub>i</sub>, r<sub>i</sub>, FL<sub>i</sub>, FR<sub>i</sub>, Fl<sub>i</sub>, Fr<sub>i</sub>
+      </i>according to <i>S</i>.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>Replace(S,P,Q)</i> replaces a part of node <i>S</i>, that coincides with <i>P</i>,
+      with <i>Q</i>.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms">Functions <i>LeftOf(S,k)</i> and <i>RightOf(S,k)</i> define two parts of <i>S</i>, that
+      are, respectively, to the left and to the right of key <i>k</i> in <i>S</i>.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms">For each <i>m = 0,…,b</i> we define a function <i>Compress<sup>m</sup> </i>that is
+      applied to not incompressible sweeps of length <i>b</i>. The result of the function is an
+      incompressible sweep of length <i>b-1</i>, composed of <i>b</i> well-formed (<i>WF</i> see
+      above) nodes. Namely, let<br>
+      <i>Compress<sup>m</i></sup>(<i>A<sub>0</sub>,a<sub>1</i></sub>,<i>…</i>,<i>a<sub>b</sub>,A<sub>b</i></sub>)
+      = <i>&lt;C<sub>0</sub>,c<sub>1</i></sub>,<i>…</i>,<i>c<sub>b-1</sub>,C<sub>b-1</sub>&gt;</i><br>
+      then the resulting sweep is obtained by distributing the contents of node <i>A<sub>m</i></sub>
+      between the other nodes of the initial sweep in such a way that <i>a<sub><i>i</i></sub>
+      &lt; c<sub><i>i</i></sub> </i>for <i>i = 1,…,m</i>, and <i>c<sub><i>i</i></sub> &lt; a<sub><i>i+1</i></i></sub>
+      for <i>i = m,…,b-1</i>.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>ComputeSets(S) </i>calculates seven subsets of the set of keys of node <i>S</i>: <i>MLeft,
+      MRight, MDelimL, MDelimR, MDelim, coMLeft, and coMRight</i>.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>ChooseAny(E), ChooseMax(E), ChooseMin(E)</i> for the given key set <i>E</i> return,
+      respectively, an arbitrary, the maximal, and the minimal key of set <i>E</i>.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>MinKey(S) </i>looks for the minimal key in the sub-tree rooted at <i>S</i>, returns (<i>S',
+      k'</i>) where <i>k'</i> is the minimal key, and <i>S'</i> is the leaf that contains <i>k'</i>.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>GlueParents(F)</i> takes the parent <i>F</i> of the current node <i>S</i>, the left,
+      and the right neighbors of <i>F</i>, glues them into one node, and returns the result. A
+      more sophisticated variant of this function is to check before gluing whether the
+      neighbors have been modified, and glue to <i>F</i> only the modified ones.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>CreateNewRoot(S)</i> creates the new root of the tree, containing the only reference
+      to the given node <i>S</i>.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>ReleaseRoot()</i>. If the root of the tree contains only one reference to a node <i>S</i>,
+      and no keys, then this root is removed, and <i>S</i> is assigned to be the new root of the
+      tree.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>[P,d,Q] </i>creates a new node composed of all keys, and node references (in case of
+      internal nodes), of the given nodes <i>P</i> and <i>Q</i>, with the key <i>d</i> between
+      them.<!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--></table>
+  <p align="JUSTIFY">If <i>k(S)</i> denotes the set of all keys of node <i>S</i>, then the
+  definitions of the subsets are as follows.</p>
+  <i><p align="JUSTIFY">MLeft    = {d from k(S) such that IC(L<sub>b-1</sub>,l<sub>b-1</sub>,…,L<sub>0</sub>,l<sub>0</sub>,LeftOf(S,d))}<br>
+  MRight   = {d from k(S) such that IC(RightOf(S,d),r<sub>0</sub>,R<sub>0</sub>,…,r<sub>b-1</sub>,R<sub>b-1</sub>)}<br>
+  MDelimL  = {d from k(S) such that WF(RightOf(S,d))}<br>
+  MDelimR  = {d from k(S) such that WF(LeftOf(S,d))}<br>
+  MDelim   = MDelimL # MDelimR<br>
+  coMLeft  = k(S) \ MLeft<br>
+  coMRight = k(S) \ MRight</p>
+  </i><p align="JUSTIFY">The sets, and the ComputeSets() procedure are used in Balance_W()
+  to control the process of computation. </p>
+  <li><b>The main procedures.</b></li>
+  <p><b>Procedure</b> Insert(<i>T,k</i>)<br>
+      (<i>BoolValue, S, k<sub>i</i></sub>) = <i>Search(T,k)</i>;<br>
+  <b>    if</b> <i>BoolValue = True </i><b>then return fi</b>;<br>
+      /* <i>k</i> haven't been found means that <i>S</i> is a leaf */<br>
+  <i>    Replace(S,&lt;k<sub>i</sub>&gt;,&lt;k,k<sub>i</sub>&gt;)</i> /* insert <i>k</i>
+  before <i>k<sub>i</i></sub> */<br>
+      Balance(<i>S</i>); /* balance <i>T</i> starting from leaf <i>S</i> */<br>
+  <b>EndProcedure</b></p>
+  <b><p>Procedure </b>Delete(<i>T,k</i>)<br>
+      (<i>BoolValue, S, k<sub>i</i></sub>) = <i>Search(T,k)</i>;<br>
+  <b>    if</b> <i>BoolValue = False </i><b>then return fi</b>;<br>
+  <b>    if </b><i>S</i> is not a leaf <b>then</b><br>
+          /* <i>S</i> is internal, and contains reference */<br>
+          /* <i>S<sub>i+1</i></sub>, which is to the right of <i>k<sub>i</sub> </i>in
+  <i>S</i> */<br>
+          (<i>S', k'</i>) = <i>MinKey(S<sub>i+1</sub>)</i>;<br>
+  <i>        Replace(S,&lt;k<sub>i</sub>&gt;,&lt;k'&gt;)</i>;<br>
+  <i>        S := S'</i>;<br>
+  <i>        k := k'</i>;<i><br>
+  </i>    f<b>i<br>
+  </b>    /* <i>S</i> is a leaf */<br>
+  <i>    Replace(S,&lt;k&gt;,&lt;&gt;)</i> /* delete <i>k</i> from leaf <i>S</i> */<br>
+      Balance(<i>S</i>); /* balance <i>T</i> starting from leaf <i>S</i> */<br>
+  <b>EndProcedure</p>
+  <p>Procedure </b>Balance(<i>S</i>)<br>
+  <b>    while </b><i>S</i> is not the root <b>do<br>
+          if</b> ! <i>WB(S) </i><b>then </b><i>F := </i>Balance_B(<i>S</i>);<br>
+  <b>        else if </b>! <i>WC(S) </i><b>then </b><i>F := </i>Balance_C(<i>S</i>);<br>
+  <b>        else if </b>! <i>WW(S) </i><b>then </b><i>F := </i>Balance_W(<i>S</i>);<br>
+  <b>        else </b><i>S := F</i>; <b>continue</b>;<br>
+  <b>        fi fi fi</b><br>
+  <i>        S := GlueParents(F)</i>;<br>
+  <b>    od<br>
+  </b>    /* <i>S</i> is the root now */<br>
+  <b>    if </b><i>|S| = 0 </i><b>then<br>
+  </b><i>        ReleaseRoot()</i>;<br>
+  <b>    fi<br>
+      if</b> ! <i>WW(S) </i><b>then<br>
+  </b><i>        CreateNewRoot(S)</i>;<br>
+          Balance_W(<i>S</i>);<br>
+  <b>    fi<br>
+  EndProcedure</b> </p>
+  <p><b>Procedure</b> Balance_W(<i>S</i>)<br>
+  <i>MakeVicinity(S)</i>;<br>
+  <i>ComputeSets(S)</i>;<br>
+  <br>
+  // Compression:<br>
+  // Distribute all keys of <i>S</i> between<br>
+  // the other nodes of the vicinity<br>
+  <b>if </b><i>coMLeft # coMRight != Empty </i><b>then<br>
+  </b><i>    d := ChooseAny(coMLeft # coMRight)</i>;<br>
+  <i>    &lt;X<sub>b-1</sub>,x<sub>b-1</sub>,…,x<sub>1</sub>,X<sub>0</sub>&gt; :=
+  Compress<sup>b</sup>(L<sub>b-1</sub>,l<sub>b-1</sub>,…,L<sub>0</sub>,l<sub>0</sub>,LeftOf(S,d))</i>;<br>
+  <i>    &lt;Y<sub>0</sub>,y<sub>1</sub>,…,y<sub>b-1</sub>,Y<sub>b-1</sub>&gt; :=
+  Compress<sup>0</sup>(RightOf(S,d),r<sub>0</sub>,R<sub>0</sub>,…,r<sub>b-1</sub>,R<sub>b-1</sub>);</i><br>
+  <b>    for</b> <i>i := 1 </i><b>to </b><i>b-1</i><b> do<br>
+  </b><i>        Replace(FL<sub>i</sub>,&lt;L<sub>i</sub>&gt;,&lt;X<sub>i</sub>&gt;)</i>;<br>
+  <i>        Replace(Fl<sub>i</sub>,&lt;l<sub>i</sub>&gt;,&lt;x<sub>i</sub>&gt;)</i>;<br>
+  <i>        Replace(FR<sub>i</sub>,&lt;R<sub>i</sub>&gt;,&lt;Y<sub>i</sub>&gt;)</i>;<br>
+  <i>        Replace(Fr<sub>i</sub>,&lt;r<sub>i</sub>&gt;,&lt;y<sub>i</sub>&gt;)</i>;<br>
+  <b>    od<br>
+  </b><i>    Replace(FR<sub>0</sub>,&lt;R<sub>0</sub>&gt;,&lt;Y<sub>0</sub>&gt;)</i>;<br>
+  <i>    Replace(Fr<sub>0</sub>,&lt;r<sub>0</sub>&gt;,&lt;d&gt;)</i>;<br>
+  <b>    if</b> <i>FL<sub>0</sub> = F </i><b>then<br>
+  </b><i>        Replace(F,&lt;L<sub>0</sub>,l<sub>0</sub>,S&gt;,&lt;X<sub>0</sub>&gt;)</i>;<br>
+  <b>    else<br>
+  </b><i>        Replace(F,&lt;S&gt;,&lt;X<sub>0</sub>&gt;)</i>;<b><br>
+  </b><i>        Replace(Fl<sub>0</sub>,&lt;l<sub>0</sub>&gt;,&lt;x<sub>1</sub>&gt;)</i>;<b><br>
+  </b><i>        Replace(FL<sub>0</sub>,&lt;X<sub>1</sub>,x<sub>1</sub>,L<sub>0</sub>&gt;,&lt;X<sub>1</sub>&gt;)</i>;<b><br>
+      fi<br>
+      return </b><i>F</i><b>;<br>
+  fi<br>
+  <br>
+  </b>// Move left:<br>
+  // Move to the left part of the vicinity<br>
+  // as much keys from S as possible<br>
+  <b>if</b><i> coMLeft != Empty </i><b>then</b><br>
+  <b>    if</b><i> MDelimL # coMLeft != Empty </i><b>then </b><i>d := ChooseAny(MDelimL #
+  coMLeft)</i>;<br>
+  <b>    else </b>   <i>                           d :=
+  ChooseMax(coMLeft)</i>;<br>
+  <i>    &lt;X<sub>b-1</sub>,x<sub>b-1</sub>,…,x<sub>1</sub>,X<sub>0</sub>&gt; :=
+  Compress<sup>b</sup>(L<sub>b-1</sub>,l<sub>b-1</sub>,…,L<sub>0</sub>,l<sub>0</sub>,LeftOf(S,d))</i>;<br>
+  <i>    Y := RightOf(S,d)</i>;<br>
+  <b>    for</b> <i>i := 1 </i><b>to </b><i>b-1</i><b> do<br>
+  </b><i>        Replace(FL<sub>i</sub>,&lt;L<sub>i</sub>&gt;,&lt;X<sub>i</sub>&gt;)</i>;<br>
+  <i>        Replace(Fl<sub>i</sub>,&lt;l<sub>i</sub>&gt;,&lt;x<sub>i</sub>&gt;)</i>;<br>
+  <b>    od<br>
+  </b><i>    Replace(FL<sub>0</sub>,&lt;L<sub>0</sub>&gt;,&lt;X<sub>0</sub>&gt;)</i>;<br>
+  <i>    Replace(Fl<sub>0</sub>,&lt;l<sub>0</sub>&gt;,&lt;d&gt;)</i>;<br>
+  <i>    Replace(F,&lt;S&gt;,&lt;Y&gt;)</i>;<b><br>
+      if</b> <i>WW(Y) </i><b>then return </b><i>F</i><b>; fi<br>
+  </b><i>    S := Y</i>;<b><br>
+  </b><i>    MakeVicinity(S)</i>;<br>
+  <i>    ComputeSets(S)</i>;<i><br>
+  </i><b>fi<br>
+  <br>
+  </b>// Move right:<br>
+  // Move to the right part of the vicinity<br>
+  // as much keys from S as possible<br>
+  <b>if</b><i> coMRight != Empty </i><b>then</b><br>
+  <b>    if</b><i> MDelimR # coMRight != Empty </i><b>then </b><i>d := ChooseAny(MDelimR
+  # coMRight)</i>;<br>
+  <b>    else </b>      <i>                         d :=
+  ChooseMin(coMRight)</i>;<br>
+  <i>    X := LeftOf(S,d)</i>;<br>
+  <i>    &lt;Y<sub>0</sub>,y<sub>1</sub>,…,y<sub>b-1</sub>,Y<sub>b-1</sub>&gt; :=
+  Compress<sup>0</sup>(RightOf(S,d),r<sub>0</sub>,R<sub>0</sub>,…,r<sub>b-1</sub>,R<sub>b-1</sub>);</i><br>
+  <b>    for</b> <i>i := 1 </i><b>to </b><i>b-1</i><b> do<br>
+  </b><i>        Replace(FR<sub>i</sub>,&lt;R<sub>i</sub>&gt;,&lt;Y<sub>i</sub>&gt;)</i>;<br>
+  <i>        Replace(Fr<sub>i</sub>,&lt;r<sub>i</sub>&gt;,&lt;y<sub>i</sub>&gt;)</i>;<br>
+  <b>    od<br>
+  </b><i>    Replace(FR<sub>0</sub>,&lt;R<sub>0</sub>&gt;,&lt;Y<sub>0</sub>&gt;)</i>;<br>
+  <i>    Replace(Fr<sub>0</sub>,&lt;r<sub>0</sub>&gt;,&lt;d&gt;)</i>;<br>
+  <i>    Replace(F,&lt;S&gt;,&lt;X&gt;)</i>;<b><br>
+      if</b> <i>WW(X) </i><b>then return </b><i>F</i><b>; fi<br>
+  </b><i>    S := X</i>;<b><br>
+  </b><i>    MakeVicinity(S)</i>;<br>
+      <i>ComputeSets(S)</i>;<i><br>
+  </i><b>fi<br>
+  <br>
+  </b>// Split:<br>
+  // Even after moving out of <i>S</i> all keys that fit into the other nodes<br>
+  // of the vicinity <i>S</i> is still too large, and<br>
+  // need to be split into two nodes<b><br>
+  if </b><i>MDelim != Empty </i><b>then </b><i>d := ChooseAny(MDelim)</i>;<br>
+  <b>else </b>   <i>                d := ChooseMax(MDelimR)</i>;<br>
+  <i>X := LeftOf(S,d)</i>;<br>
+  <i>Y := RightOf(S,d)</i>;<br>
+  <i>Replace(F,&lt;S&gt;,&lt;X,d,Y&gt;)</i>;<b><br>
+  if</b> <i>WW(Y) </i><b>then return </b><i>F</i><b>; fi<br>
+  </b><i><br>
+  </i>// Recursion:<br>
+  // Even after splitting off a node <i>X</i> the remaining part <i>Y </i>is still<br>
+  // too large, Balance_W() will be applied to <i>Y</i> again<br>
+  <i>F := </i>Balance_W(<i>Y</i>);<br>
+  <b>return </b><i>F</i>;<br>
+  <b>EndProcedure</b></p>
+  <p><b>Procedure</b> Balance_B(<i>S</i>)<br>
+  <i>MakeVicinity(S)</i>;<b><br>
+  <br>
+  </b>// First Compression:<br>
+  // Check which of the first <i>b</i> sweeps of the vicinity is<br>
+  // compressible, and compress the first found<br>
+  <b>for </b><i>m := 0 </i><b>to </b><i>b-1 </i><b>do<br>
+      if</b> ! <i>IC(Sweep<sub>b</sub><sup>m</sup>(S)) </i><b>then break</b>;<b> fi<br>
+  od<br>
+  <br>
+  if </b><i>m &lt; b </i><b>then </b>// a compressible sweep is found, compress it<br>
+  <i>    &lt;X<sub>b-m-1</sub>,x<sub>b-m-1</sub>,…,x<sub>1</sub>,X<sub>0</sub>,y<sub>0</sub>,Y<sub>0</sub>,y<sub>1</sub>,…,y<sub>m-1</sub>,Y<sub>m-1</sub>&gt;
+  := Compress<sup>b-m</sup>(Sweep<sub>b</sub><sup>m</sup>(S))</i>;<br>
+  <b>    for</b> <i>i := 1 </i><b>to </b><i>b-m-1</i><b> do</b><br>
+  <i>        Replace(FL<sub>i</sub>,&lt;L<sub>i</sub>&gt;,&lt;X<sub>i</sub>&gt;)</i>;<br>
+  <i>        Replace(Fl<sub>i</sub>,&lt;l<sub>i</sub>&gt;,&lt;x<sub>i</sub>&gt;)</i>;<br>
+  <b>    od<br>
+      for</b> <i>i := 0 </i><b>to </b><i>m-1</i><b> do<br>
+  </b><i>        Replace(FR<sub>i</sub>,&lt;R<sub>i</sub>&gt;,&lt;Y<sub>i</sub>&gt;)</i>;<br>
+  <i>        Replace(Fr<sub>i</sub>,&lt;r<sub>i</sub>&gt;,&lt;y<sub>i</sub>&gt;)</i>;<br>
+  <b>    od<br>
+      if</b> <i>FL<sub>0</sub> = F </i><b>then<br>
+  </b><i>        Replace(F,&lt;L<sub>0</sub>,l<sub>0</sub>,S&gt;,&lt;X<sub>0</sub>&gt;)</i>;<br>
+  <b>    else<br>
+  </b><i>        Replace(F,&lt;S&gt;,&lt;X<sub>0</sub>&gt;)</i>;<b><br>
+  </b><i>        Replace(Fl<sub>0</sub>,&lt;l<sub>0</sub>&gt;,&lt;x<sub>1</sub>&gt;)</i>;<b><br>
+  </b><i>        Replace(FL<sub>0</sub>,&lt;X<sub>1</sub>,x<sub>1</sub>,L<sub>0</sub>&gt;,&lt;X<sub>1</sub>&gt;)</i>;<b><br>
+      fi</b><br>
+  <i>    m := m + 1</i>;<br>
+  <i>    S := X<sub>1</i></sub>;<br>
+  <i>    MakeVicinity(S)</i>;<br>
+  <b>fi</b><br>
+  <br>
+  // Second Compression:<br>
+  // Among the remaining sweeps of the vicinity check which one is<br>
+  // compressible, and compress the first found<br>
+  <b>for </b><i>m := m </i><b>to </b><i>b </i><b>do<br>
+      if</b> ! <i>IC(Sweep<sub>b</sub><sup>m</sup>(S)) </i><b>then break</b>;<b> fi<br>
+  od<br>
+  </b><br>
+  <b>if </b><i>m &gt; b </i><b>then return </b><i>F</i>;<b> fi<br>
+  </b>// A compressible sweep is found, compress it<br>
+  <i>&lt;X<sub>b-m-1</sub>,x<sub>b-m-1</sub>,…,x<sub>1</sub>,X<sub>0</sub>,y<sub>0</sub>,Y<sub>0</sub>,y<sub>1</sub>,…,y<sub>m-1</sub>,Y<sub>m-1</sub>&gt;
+  := Compress<sup>b-m</sup>(Sweep<sub>b</sub><sup>m</sup>(S))</i>;<br>
+  <b>for</b> <i>i := 0 </i><b>to </b><i>b-m-1</i><b> do<br>
+  </b><i>    Replace(FL<sub>i</sub>,&lt;L<sub>i</sub>&gt;,&lt;X<sub>i</sub>&gt;)</i>;<br>
+  <i>    Replace(Fl<sub>i</sub>,&lt;l<sub>i</sub>&gt;,&lt;x<sub>i</sub>&gt;)</i>;<br>
+  <b>od<br>
+  for</b> <i>i := 1 </i><b>to </b><i>m-1</i><b> do<br>
+  </b><i>    Replace(FR<sub>i</sub>,&lt;R<sub>i</sub>&gt;,&lt;Y<sub>i</sub>&gt;)</i>;<br>
+  <i>    Replace(Fr<sub>i</sub>,&lt;r<sub>i</sub>&gt;,&lt;y<sub>i</sub>&gt;)</i>;<br>
+  <b>od<br>
+  if</b> <i>FR<sub>0</sub> = F </i><b>then<br>
+  </b><i>    Replace(F,&lt;S,r<sub>0</sub>,R<sub>0</sub>&gt;,&lt;Y<sub>0</sub>&gt;)</i>;<br>
+  <b>else<br>
+  </b><i>    Replace(F,&lt;S&gt;,&lt;Y<sub>0</sub>&gt;)</i>;<b><br>
+  </b><i>    Replace(Fr<sub>0</sub>,&lt;r<sub>0</sub>&gt;,&lt;y<sub>1</sub>&gt;)</i>;<b><br>
+  </b><i>    Replace(FR<sub>0</sub>,&lt;R<sub>0</sub>,y<sub>1</sub>,Y<sub>1</sub>&gt;,&lt;Y<sub>1</sub>&gt;)</i>;<b><br>
+  fi<br>
+  </b>// It is proven that not more than 2 nodes of the vicinity<br>
+  // can be shrunken<br>
+  <b>return </b><i>F</i>;<br>
+  <b>EndProcedure</b></p>
+  <p><strong>Procedure</strong> Balance_C(<i>S</i>)<br>
+  <i>MakeVicinity(S)</i>;<b><br>
+  <br>
+  </b>// If <i>S</i> has too few keys we glue it with one of the nearest<br>
+  // neighbors, and apply Balance_W to the result if necessary<br>
+  <b>if </b><i>|F| &gt; 0 </i><b>then </b>// at least one key is in <i>F</i><br>
+  <b>    if</b> <i>FL<sub>0</sub> = F </i><b>then<br>
+  </b><i>        X := [L<sub>0</sub>,l<sub>0</sub>,S]</i>;<br>
+  <i>        Replace(F,&lt;L<sub>0</sub>,l<sub>0</sub>,S&gt;,&lt;X&gt;)</i>;<br>
+  <b>    else</b>   // <i>FR<sub>0</sub> = F</i>, since <i>F</i> contains at least one key<br>
+  <i>        X := [S,r<sub>0</sub>,R<sub>0</sub>]</i>;<br>
+  <i>        Replace(F,&lt;S,r<sub>0</sub>,R<sub>0</sub>&gt;,&lt;X&gt;)</i>;<br>
+  <b>    fi<br>
+  else </b>// there is no keys in <i>F</i> only the reference to S<br>
+  <b>    if</b> |<i>FL<sub>0</i></sub>|<i> &gt; 1 </i><b>then</b><br>
+  <i>        X := [L<sub>0</sub>,l<sub>0</sub>,S]</i>;<br>
+  <i>        Replace(F,&lt;S&gt;,&lt;X&gt;)</i>;<br>
+  <i>        Replace(Fl<sub>0</sub>,&lt;l<sub>0</sub>&gt;,&lt;l<sub>1</sub>&gt;)</i>;<br>
+  <i>        Replace(FL<sub>0</sub>,&lt;L<sub>1</sub>,l<sub>1</sub>,L<sub>0</sub>&gt;,&lt;L<sub>1</sub>&gt;)</i>;<br>
+      <b>else </b>/* |<i>FR<sub>0</i></sub>|<i> &gt; 1 </i>*/<br>
+  <i>        X := [L<sub>0</sub>,l<sub>0</sub>,S]</i>;<br>
+  <i>        Replace(F,&lt;S&gt;,&lt;X&gt;)</i>;<br>
+  <i>        Replace(Fr<sub>0</sub>,&lt;r<sub>0</sub>&gt;,&lt;r<sub>1</sub>&gt;)</i>;<br>
+  <i>        Replace(FR<sub>0</sub>,&lt;R<sub>0</sub>,r<sub>1</sub>,R<sub>1</sub>&gt;,&lt;R<sub>1</sub>&gt;)</i>;<br>
+      <b>fi<br>
+  fi<br>
+  <br>
+  if</b> ! <i>WW(X) </i><b>then</b><br>
+  <i>    F := </i>Balance_W(<i>Y</i>);<br>
+  <b>fi<br>
+  return </b><i>F</i>;<br>
+  <b>EndProcedure</font></b></p>
+</ol>
+
+<p align="center"><!--webbot bot="Navigation" s-type="siblings" s-orientation="horizontal" s-rendering="graphics" b-include-home="FALSE" b-include-up="FALSE" startspan --><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/introduction.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="introduction.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/balanced.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="balanced.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/b-trees.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="b-trees.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/s(b)-trees.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param 
+name="textVAlign" value="middle"><param name="url" value="s(b)-trees.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/utilization.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="utilization.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/algorithms.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="algorithms.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/interface.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="interface.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbp.gif"><param name="hoverImage" value="_themes/nature/nahbp.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/specs.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url
+" value><param name="bgColor" value="#ffffff"></applet><!--webbot bot="Navigation" endspan i-checksum="29608" --> 
+<!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<div align="center"><center>
+
+<address>
+  <font face="Courier New" size="2" color="#008000"><strong>Last update: 28/02/98 by</strong></font><br>
+  <font size="2"><a href="mailto:" style="color: rgb(0,0,255)">Konstantin
+  Shvachko: </a> </font>
+</address>
+</center></div>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--mstheme--></font></body>
+</html>

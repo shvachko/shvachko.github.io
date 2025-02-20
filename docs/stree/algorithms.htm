@@ -1,0 +1,132 @@
+<html>
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+ <meta name="keywords" content="balanced tree, B-tree, btree, S(b)-tree, 
+                                s(b)tree, sbtree, variable length key, 
+                                treefs, tree file system, reiserfs, database, 
+                                db, starset, c, c++, VC, gnuc, gcc, djgpp, 
+                                linux, win32, windows, library, free, download,
+                                data structure">
+ <title>Algorithms</title>
+ <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+ <meta name="Microsoft Theme" content="nature 011, default">
+ <meta name="Microsoft Border" content="tb">
+</head>
+
+<body background="_themes/nature/nabkgnd.gif" bgcolor="#FFFFFF" text="#000000" link="#FF6600" vlink="#660099" alink="#00CC00"><!--mstheme--><font face="trebuchet ms"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><img src="_derived/algorithms.htm_cmp_nature010_bnr.gif" width="600" height="60" border="0" alt="Algorithms"></p>
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><font face="Arial"><a href="Default.htm" style="color: rgb(0,0,255)">Home</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">PSI RAS</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">RCIS</a> | <a href="Default.htm" style="color: rgb(0,0,255)">S-Tree Lib</font></a></p>
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><!--msnavigation--><td valign="top">
+<!--webbot bot="Navigation" s-type="arrows" s-orientation="horizontal" s-rendering="text" b-include-home="FALSE" b-include-up="TRUE" startspan --><nobr>[ <a href="utilization.htm">Back</a> ]</nobr> <nobr>[ <a href="Default.htm">Up</a> ]</nobr> <nobr>[ <a href="interface.htm">Next</a> ]</nobr><!--webbot bot="Navigation" endspan i-checksum="29018" -->
+
+<ol start="6">
+  <li><font face="Courier New" size="3"><strong><big><b>The sketch of the algorithms.</b></big></strong>
+    </font></li>
+</ol>
+<font face="Courier New" size="2">
+
+<p align="JUSTIFY">The algorithm of <b>search</b> in an S(b)-tree is the same as for all
+other balanced trees, see Section 2.</p>
+
+<p align="JUSTIFY">The algorithms of insertion, and deletion in an S(b)-tree are much more
+complicated then the ones for the B-trees. The difficulty here is that balancing of a
+modified node <i>S</i> involves additionally <i>b</i> neighboring nodes to the left, and <i>b</i>
+neighboring nodes to the right of <i>S</i>, while for B-trees insertion is performed
+without any neighbors, and for deletion at most one neighbor is required. </p>
+
+<p align="JUSTIFY">Nevertheless we prove that an insertion, and a deletion of a key in an <i>n</i>-node
+S(b)-tree is logarithmic, that is can be performed in time less than or equal to<i> C
+log(n)</i>, where constant <i>C</i> doesn’t depend on the number of nodes <i>n</i> in
+the tree, and is proportional to the locality parameter <i>b</i>. 
+
+<ol>
+  <b>
+  <li>Insertion.</li>
+  </b><p align="JUSTIFY">Using the search algorithm the <b>insertion</b> first verifies
+  whether the given key <i>k</i> is contained in the given tree <i>T</i>. If <i>k</i> is
+  contained in <i>T </i>then the insertion is finished. Otherwise the search procedure will
+  return a leaf <i>S</i>, and a key <i>k<sub>i</i></sub> in it, before which the key <i>k</i>
+  must be inserted. <i>k</i> is inserted to the given place of the node <i>S</i>, and the
+  insertion proceeds to balancing of the tree. </p>
+  <p align="JUSTIFY">Balancing is performed by a special procedure, which is the common part
+  of both the insertion and the deletion algorithms. Balancing starting from the enlarged
+  leaf <i>S</i> balances all the nodes that lay on the path from the root of the tree to <i>S</i>.
+  </p>
+  <b>
+  <li>Deletion.</li>
+  </b><p align="JUSTIFY">Similarly to the insertion, <b>deletion</b> begins with search. If
+  the given a key <i>k</i> is not found in the given S(b)-tree <i>T</i>, then the deletion
+  is finished. Otherwise the search returns a node <i>S</i>, and a key <i>k<sub>i</i></sub>
+  in it, that must be deleted. Note that <i>S</i> can be either an internal node or a leaf. </p>
+  <p align="JUSTIFY">The case when <i>S</i> is not a leaf can be easily reduced to the case
+  of deletion from a leaf. If <i>S</i> is internal, we consider the sub-tree accessible via
+  the reference <i>S<sub>i+1</i></sub>, which is to the right of <i>k<sub>i</sub> </i>in <i>S</i>.
+  Take the left most leaf <i>S’</i> in the sub-tree, and the smallest key <i>k’</i> in <i>S’</i>,
+  and replace <i>k<sub>i</sub> </i>by <i>k’</i> in <i>S</i>. Now we can proceed to the
+  deletion of <i>k’</i> from the leaf node <i>S’</i>.</p>
+  <p align="JUSTIFY">Now <i>S</i> is a leaf, and <i>k<sub>i</i></sub> is the key that must
+  be deleted from <i>S</i>. The deletion algorithm removes <i>k<sub>i</i></sub> from <i>S</i>
+  and starts balancing of the tree using the same balance algorithm used in insertion. </p>
+  <b>
+  <li>Balancing. </b></li>
+  <p align="JUSTIFY">The Balance() procedure is the main common part of the insertion and
+  the deletion algorithms. The balancing begins from the leaf node <i>S</i>, which is given
+  as an input parameter for the procedure. After working on the level of the current node <i>S</i>
+  the procedure takes for balancing the direct parent of <i>S</i>. The process proceeds
+  further up to the root node. The balanced tree is returned as the result of procedure
+  Balance(). </p>
+</ol>
+
+<p align="JUSTIFY">For any current node <i>S</i> the procedure decides to balance <i>S</i>
+if one of the following three conditions holds. 
+
+<ol>
+  <li>One of <i>b+1 </i>sweeps of length <i>b</i>, containing <i>S</i>, is not incompressible.</li>
+  <i>
+  <li>|S| &lt; q.</li>
+  <li><font face="Symbol">M</font>(S) &gt; p</i>.</li>
+</ol>
+
+<p align="JUSTIFY">In the first case the procedure Balance_B() is used for balancing <i>S</i>.
+If Condition 2 holds for <i>S</i> then Balance_C() is used. And in the case of Condition 3
+<i>S</i> is balanced by Balance_W(). When none of the conditions holds, Balance() skips
+the level. </p>
+
+<p align="JUSTIFY">Each of the three procedures restores the structure of the S(b)-tree
+disturbed locally for one, two or three vertices of the current tree level. While
+correcting the structure of the tree on the current level, the algorithm should change
+also the ancestors of <i>S</i>. This can break in turn the balance conditions for the
+lower level nodes. Such breakdowns are also local, since not more than three lower level
+nodes can be changed: the direct parent of <i>S</i>, and two its neighbors to the left and
+to the right of <i>S</i>. Coming to the next level of the tree Balance() merges the
+modified nodes of the level, and balances them in a whole. </p>
+
+<p align="JUSTIFY">The computation stops after coming through the tree root. Thus the
+algorithm examines all the nodes that lay on the path from the tree root to the leaf,
+containing the new key and balances them if necessary. Only these nodes and their
+neighbors (<i>b</i> to the left and <i>b</i> to the right) in the tree can be transformed
+by the algorithm. </p>
+
+<p align="JUSTIFY">After balancing the structure of the S(b)-tree is restored provided
+that all modified nodes become well-formed nodes and all sweeps of the tree are
+incompressible.</font> </p>
+
+<p align="center"><!--webbot bot="Navigation" s-type="siblings" s-orientation="horizontal" s-rendering="graphics" b-include-home="FALSE" b-include-up="FALSE" startspan --><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/introduction.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="introduction.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/balanced.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="balanced.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/b-trees.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="b-trees.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/s(b)-trees.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="s(b)-trees.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/utilization.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="utilization.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbp.gif"><param name="hoverImage" value="_themes/nature/nahbp.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/algorithms.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/interface.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="interface.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/specs.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="specs.htm"><param name="bgColor" value="#ffffff"></applet><!--webbot bot="Navigation" endspan i-checksum="59972" -->
+<!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<div align="center"><center>
+
+<address>
+  <font face="Courier New" size="2" color="#008000"><strong>Last update: 12/24/97 by</strong></font><br>
+  <font size="2"><a href="mailto:" style="color: rgb(0,0,255)">Konstantin
+  Shvachko: </a> </font>
+</address>
+</center></div>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--mstheme--></font></body>
+</html>

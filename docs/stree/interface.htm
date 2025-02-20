@@ -1,0 +1,353 @@
+<html>
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+ <meta name="keywords" content="balanced tree, B-tree, btree, S(b)-tree, 
+                                s(b)tree, sbtree, variable length key, 
+                                treefs, tree file system, reiserfs, database, 
+                                db, starset, c, c++, VC, gnuc, gcc, djgpp, 
+                                linux, win32, windows, library, free, download,
+                                data structure">
+ <title>Library Interface</title>
+ <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+ <meta name="Microsoft Theme" content="nature 011, default">
+ <meta name="Microsoft Border" content="tb">
+</head>
+
+<body background="_themes/nature/nabkgnd.gif" bgcolor="#FFFFFF" text="#000000" link="#FF6600" vlink="#660099" alink="#00CC00"><!--mstheme--><font face="trebuchet ms"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><img src="_derived/interface.htm_cmp_nature010_bnr.gif" width="600" height="60" border="0" alt="Library Interface"></p>
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><font face="Arial"><a href="Default.htm" style="color: rgb(0,0,255)">Home</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">PSI RAS</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">RCIS</a> | <a href="Default.htm" style="color: rgb(0,0,255)">S-Tree Lib</font></a></p>
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><!--msnavigation--><td valign="top">
+<b><font face="Courier New" size="2"><strong><!--webbot bot="Navigation" s-type="arrows" s-orientation="horizontal" s-rendering="text" b-include-home="FALSE" b-include-up="TRUE" startspan --><nobr>[ <a href="algorithms.htm">Back</a> ]</nobr> <nobr>[ <a href="Default.htm">Up</a> ]</nobr> <nobr>[ <a href="specs.htm">Next</a> ]</nobr><!--webbot bot="Navigation" endspan i-checksum="19518" --></b></strong></font>
+
+<ol start="7">
+  <li><b><font face="Courier New" size="2"><strong><big><b>The S(b)-tree library interface.</big></strong></font>
+    </b></b></li>
+</ol>
+<font face="Courier New" size="2">
+
+<p align="JUSTIFY">The S(b)-tree library implements the algorithms sketched above, and
+provides means for creating, storing, and performing the basic operations for S(b)-trees.
+The implementation is written in C++ while a pure C function interface is provided.</p>
+
+<p align="JUSTIFY">To <b>start</b> using the library one needs 
+
+<ol>
+  <li>to copy a directory named “STree” together with all its contents to your disk;</li>
+  <li>to create in STree a file, containing the main() function of your test;</li>
+  <li>the file must include “STree\Include\Inter.h”, and be compiled together with the
+    library “STree.lib” located at “STree\Bin\Debug” or “STree\Bin\Release”.</li>
+</ol>
+
+<ol>
+  <b>
+  <li>Keys. </li>
+  </b><p align="JUSTIFY">The <b>key</b> type is S_KEY. To create a key a S_CreateKey()
+  function should be used. Given an array of bytes and its length it resets the given key to
+  the specified value. </p>
+  <p>void S_CreateKey(<br>
+          S_KEY * pResKey,<br>
+          S_STRING sParValue,<br>
+          S_WEIGHT iParLength<br>
+       );</p>
+  <p align="JUSTIFY">Note that one can store not only string-valued keys, but keys of an
+  arbitrary structure by providing a conversion of a user defined key to a byte array. E.g.
+  a number can be easily converted to a string using, say, the C run-time library routines
+  itoa(), or ltoa().</p>
+  <p align="JUSTIFY">A key <b>weight</b> equals the length of the byte array plus a constant
+  given by S_EMPTY_KEY_WEIGHT.</p>
+  <b>
+  <li>S_CreateTree().</li>
+  </b><p>S_COMPLETION_CODE S_CreateTree(<br>
+                      S_TREE_HANDLE * phResTree,<br>
+                      S_NAME sParFileName,<br>
+                      S_LOCALITY iParB = S_B_DEFAULT,<br>
+                      S_ORDER iParQ = S_Q_DEFAULT,<br>
+                      S_RANK iParP = S_P_DEFAULT,<br>
+                      S_WEIGHT iParMuMax = S_MuMax_DEFAULT<br>
+                    ); </p>
+  <p align="JUSTIFY">To <b>create</b> a S(b)-tree it is necessary to specify the following
+  parameters. <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>FileName</i> where the tree will be stored.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>b</i> is the locality parameter. The better packing you need the greater <i>b</i>
+      should be.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>q</i> is the order of the S(b)-tree. It specifies a minimal number of keys in a node,
+      and is intended to provide high branching of the tree internal nodes.<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>p </i>is the tree rank. It is the size of the block for storing the tree nodes,
+      meaning that a node weight cannot exceed <i>p</i>. <!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms"><i>MuMax</i> characterizes the key set <i>K</i>, in the way that all keys in <i>K</i>
+      have length not greater than <i>MuMax</i>.<!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--></table>
+  <p align="JUSTIFY">A node weight is the sum of weights of keys contained in the node plus
+  constant S_EMPTY_NODE_TREE_WEIGHT. In the implementation we need to store some header for
+  each tree node that contains particularly the number of keys in the node, which is
+  necessary for correct reads of the node. Thus, actually the tree rank according to our
+  definitions above is <i>p - S_EMPTY_NODE_TREE_WEIGHT</i>.</p>
+  <p align="JUSTIFY">The restrictions for the parameters that provide correctness of the
+  algorithms are as follows: <ol>
+    <i>
+    <li>b &gt;= 1</li>
+    <li>q &gt;= b; q &gt;= 2</li>
+    <li>p &gt;= 2q MuMax + S_EMPTY_NODE_TREE_WEIGHT</i></li>
+  </ol>
+  <p align="JUSTIFY">S_CreateTree() creates an empty S(b)-tree with the specified
+  parameters, forms the tree handle (S_TREE_HANDLE) in the output parameter phResTree, and
+  returns the completion code (S_COMPLETION_CODE) of the function. The tree handle can be
+  used then in other tree functions for specifying the tree the function is applied to. The
+  completion code is S_CC_OK if the tree was successfully created. Otherwise one of the
+  error codes is returned. Particularly, if the specified tree parameters do not satisfy the
+  restriction a parameter inconsistency error code will be returned.</p>
+  <b>
+  <li>S_LoadTree().</li>
+  </b><p>S_COMPLETION_CODE S_LoadTree(<br>
+                      S_TREE_HANDLE * phResTree,<br>
+                      S_NAME sParFileName<br>
+                    ); </p>
+  <p>Another way to get access to a S(b)-tree is to load it.</p>
+  <p align="JUSTIFY">S_LoadTree() loads the tree located at the specified file, forms the
+  tree handle, and returns a completion code.</p>
+  <b>
+  <li>S_CloseTree().</li>
+  </b><p>S_COMPLETION_CODE S_CloseTree(<br>
+                      S_TREE_HANDLE * phParTree<br>
+                    );</p>
+  <p align="JUSTIFY">S_CloseTree() closes the tree, saves it on disk in the file it was
+  created at or loaded from, and releases the tree handle. A saved tree can be further
+  opened. The released tree handle cannot be used any more for accessing the tree.</p>
+  <b>
+  <li>S_SaveTree().</li>
+  </b><p>S_COMPLETION_CODE S_SaveTree(<br>
+                      S_TREE_HANDLE * phParTree<br>
+                    );</p>
+  <p align="JUSTIFY">S_SaveTree() saves the specified tree on disk in the file it was
+  created at or loaded from, but doesn’t close the tree. After saving the tree remains
+  accessible via the same tree handle. This function can be useful for temporary backups of
+  the tree.</p>
+  <b>
+  <li>S_Search().</li>
+  </b><p>S_COMPLETION_CODE S_Search(<br>
+                      S_TREE_HANDLE hParTree,<br>
+                      S_KEY * poParKey,<br>
+                      S_BOOL * pbIsFound<br>
+                    );</p>
+  <p align="JUSTIFY">S_Search() performs searching in the specified tree for a specified
+  key. As a result it forms the value of the specified Boolean parameter pbIsFound, which is
+  S_TRUE if the key is found in the tree or S_FALSE otherwise, and returns a completion
+  code.</p>
+  <b>
+  <li>S_Insert().</li>
+  </b><p>S_COMPLETION_CODE S_Insert(<br>
+                      S_TREE_HANDLE hParTree,<br>
+                      S_KEY * poParKey<br>
+                    );</p>
+  <p align="JUSTIFY">S_Insert() inserts the given key to the specified tree, a completion
+  code is returned.</p>
+  <b>
+  <li>S_Delete().</li>
+  </b><p>S_COMPLETION_CODE S_Delete(<br>
+                      S_TREE_HANDLE hParTree,<br>
+                      S_KEY * poParKey<br>
+                    );</p>
+  <p align="JUSTIFY">S_Delete() deletes the given key from the specified tree, a completion
+  code is returned.</p>
+  <b>
+  <li>S_First().</li>
+  </b><p>S_COMPLETION_CODE S_First(<br>
+                      S_TREE_HANDLE hParTree,<br>
+                      S_KEY * poResKey,<br>
+                      S_BOOL * pbIsFound<br>
+                    );</p>
+  <p align="JUSTIFY">Since the set of keys stored in a S(B)-tree is linearly ordered, it is
+  natural to be able to obtain the first, the last key in the set, the next, and the
+  previous keys to a given one.</p>
+  <p align="JUSTIFY">S_First() looks for the first key in the specified tree, and assigns
+  the result to the output parameter poResKey. The output parameter pbIsFound is either
+  S_TRUE if the tree is not empty, or S_FALSE otherwise.</p>
+  <b>
+  <li>S_Last().</li>
+  </b><p>S_COMPLETION_CODE S_Last(<br>
+                      S_TREE_HANDLE hParTree,<br>
+                      S_KEY * poResKey,<br>
+                      S_BOOL * pbIsFound<br>
+                    );</p>
+  <p align="JUSTIFY">S_Last() looks for the last key in the specified tree, and assigns the
+  result to the output parameter poResKey. The output parameter pbIsFound is either S_TRUE
+  if the tree is not empty, or S_FALSE otherwise.</p>
+  <b>
+  <li>S_Next().</li>
+  </b><p>S_COMPLETION_CODE S_Next(<br>
+                      S_TREE_HANDLE hParTree,<br>
+                      S_KEY * poParKey,<br>
+                      S_KEY * poResKey,<br>
+                      S_BOOL * pbIsFound<br>
+                    );</p>
+  <p align="JUSTIFY">S_Next() looks in the specified tree for the key next to the given key
+  poParKey, and assigns the result to the output parameter poResKey. The output parameter
+  pbIsFound is either S_TRUE if the next key exists in the tree, or S_FALSE otherwise.</p>
+  <p align="JUSTIFY">Note that the given key poParKey shouldn’t necessarily be contained
+  in the tree. To find the next means to find the minimal key in the tree that is greater
+  than the given key.</p>
+  <b>
+  <li>S_Previous().</li>
+  </b><p>S_COMPLETION_CODE S_Previous(<br>
+                      S_TREE_HANDLE hParTree,<br>
+                      S_KEY * poParKey,<br>
+                      S_KEY * poResKey,<br>
+                      S_BOOL * pbIsFound<br>
+                    );</p>
+  <p align="JUSTIFY">S_Previous() looks in the specified tree for the key previous to the
+  given key poParKey, and assigns the result to the output parameter poResKey. The output
+  parameter pbIsFound is either S_TRUE if the previous key exists in the tree, or S_FALSE
+  otherwise.</p>
+  <p align="JUSTIFY">Note that the given key poParKey shouldn’t necessarily be contained
+  in the tree. To find the previous means to find the maximal key in the tree that is less
+  than the given key.</p>
+  <b>
+  <li>S(b)-tree parameters, and properties. </b></li>
+  <p align="JUSTIFY">The rest of the functions return the specified tree parameters:</p>
+  <i><p align="center">b</i>, <i>q</i>, <i>p</i>, <i>MuMax</i></p>
+  <p align="JUSTIFY">and the tree intrinsic properties: <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms">Number of nodes in the tree<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms">Number of keys in the tree<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms">The tree total weight<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms">The tree height<!--mstheme--></font><!--msthemelist--></td></tr>
+    <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/nature/anabull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms">The tree utilization<!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--></table>
+  <p align="JUSTIFY">Normally the return value of any of the functions is non-negative. A
+  negative value is returned if the tree handle is invalid.</p>
+  <p align="JUSTIFY">Here are the prototypes of the functions:</p>
+  <blockquote>
+    <p>int S_TreeLocality(<br>
+            S_TREE_HANDLE hParTree<br>
+        );</p>
+    <p>int S_TreeOrder(<br>
+            S_TREE_HANDLE hParTree<br>
+        );</p>
+    <p>int S_TreeRank(<br>
+            S_TREE_HANDLE hParTree<br>
+        );</p>
+    <p>int S_TreeMaxKeyWeight(<br>
+            S_TREE_HANDLE hParTree<br>
+        );</p>
+    <p>long S_TreeNrNodes(<br>
+            S_TREE_HANDLE hParTree<br>
+        );</p>
+    <p>long S_TreeNrKeys(<br>
+            S_TREE_HANDLE hParTree<br>
+        );</p>
+    <p>long S_TreeWeight(<br>
+            S_TREE_HANDLE hParTree<br>
+        );</p>
+    <p>int S_TreeHeight(<br>
+            S_TREE_HANDLE hParTree<br>
+        );</p>
+    <p>double S_TreeUtilization(<br>
+            S_TREE_HANDLE hParTree<br>
+        );</p>
+  </blockquote>
+  <b>
+  <li>The completion codes. </b></li>
+  <p align="JUSTIFY">Here is the list of completion codes with their value and short
+  descriptions.</p>
+  </font><table border="1" cellspacing="1" cellpadding="7" width="589" bordercolordark="#996600" bordercolorlight="#CC9966">
+    <tr>
+      <td width="45%" valign="TOP" bgcolor="#000080"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2" color="#ffffff"><b><p align="JUSTIFY">Completion code name</b></font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP" bgcolor="#000080"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2" color="#ffffff"><b><p align="CENTER">Value</b></font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP" bgcolor="#000080"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2" color="#ffffff"><b><p align="JUSTIFY">Code description</b></font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_OK</font><!--mstheme--></font></td>
+      <td width="10%" valign="MIDDLE"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">0</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">Normal
+      completion</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_INVALID_TREE_HANDLE</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">1</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">Tree
+      handle is invalid</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_B_INCONSISTENT</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">2</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">b = 0</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_Q_INCONSISTENT</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">3</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">q &lt; 2</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_BQ_INCONSISTENT</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">4</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">b &gt; q</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_MUMAX_INCONSISTENT</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">5</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">p &lt;
+      2q MuMax + S_EMPTY_NODE_TREE_WEIGHT</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_CANNOT_OPEN_FILE</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">6</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">File
+      cannot be opened with the specified open modes</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_FILE_NAME_IS_NOT_SPECIFIED</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">7</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">A file
+      name is required</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_READ_FAIL</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">8</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">Read
+      error</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_WRITE_FAIL</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">9</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">Write
+      error</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_HEAVY_KEY</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">10</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">The key
+      weight is too large to fit into the tree</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_WRONG_NODE_TYPE</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">11</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">Internal
+      error</font><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">S_CC_WRONG_NODE_NUMBER</font><!--mstheme--></font></td>
+      <td width="10%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="CENTER">12</font><!--mstheme--></font></td>
+      <td width="45%" valign="TOP"><!--mstheme--><font face="trebuchet ms"><font face="Courier New" size="2"><p align="JUSTIFY">Internal
+      error</font><!--mstheme--></font></td>
+    </tr>
+  </table>
+</ol>
+
+<p align="center"><!--webbot bot="Navigation" s-type="siblings" s-orientation="horizontal" s-rendering="graphics" b-include-home="FALSE" b-include-up="FALSE" startspan --><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/introduction.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="introduction.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/balanced.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="balanced.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/b-trees.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="b-trees.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/s(b)-trees.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="s(b)-trees.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/utilization.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="utilization.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/algorithms.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="algorithms.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbp.gif"><param name="hoverImage" value="_themes/nature/nahbp.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/interface.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/specs.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="specs.htm"><param name="bgColor" value="#ffffff"></applet><!--webbot bot="Navigation" endspan i-checksum="54744" -->
+<!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<div align="center"><center>
+
+<address>
+  <font face="Courier New" size="2" color="#008000"><strong>Last update: 12/24/97 by</strong></font><br>
+  <font size="2"><a href="mailto:" style="color: rgb(0,0,255)">Konstantin
+  Shvachko: </a> </font>
+</address>
+</center></div>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--mstheme--></font></body>
+</html>

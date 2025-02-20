@@ -1,0 +1,93 @@
+<html>
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+ <meta name="keywords" content="balanced tree, B-tree, btree, S(b)-tree, 
+                                s(b)tree, sbtree, variable length key, 
+                                treefs, tree file system, reiserfs, database, 
+                                db, starset, c, c++, VC, gnuc, gcc, djgpp, 
+                                linux, win32, windows, library, free, download,
+                                data structure">
+ <title>S(b)-Trees</title>
+ <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+ <meta name="Microsoft Theme" content="nature 011, default">
+ <meta name="Microsoft Border" content="tb">
+</head>
+
+<body background="_themes/nature/nabkgnd.gif" bgcolor="#FFFFFF" text="#000000" link="#FF6600" vlink="#660099" alink="#00CC00"><!--mstheme--><font face="trebuchet ms"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><img src="_derived/s(b)-trees.htm_cmp_nature010_bnr.gif" width="600" height="60" border="0" alt="S(b)-Trees"></p>
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><font face="Arial"><a href="Default.htm" style="color: rgb(0,0,255)">Home</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">PSI RAS</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">RCIS</a> | <a href="Default.htm" style="color: rgb(0,0,255)">S-Tree Lib</font></a></p>
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><!--msnavigation--><td valign="top">
+<!--webbot bot="Navigation" s-type="arrows" s-orientation="horizontal" s-rendering="text" b-include-home="FALSE" b-include-up="TRUE" startspan --><nobr>[ <a href="b-trees.htm">Back</a> ]</nobr> <nobr>[ <a href="Default.htm">Up</a> ]</nobr> <nobr>[ <a href="utilization.htm">Next</a> ]</nobr><!--webbot bot="Navigation" endspan i-checksum="7823" --> 
+
+<ol start="4">
+  <li><font face="Courier New" size="3"><strong><big><b>Definition of S(b)-trees. </b></big></strong></font></li>
+</ol>
+
+<p align="JUSTIFY"><font face="Courier New" size="2">To refine the phenomenon described
+above we need to define weight for each key from <i>K</i>. From the practical viewpoint
+the weight is the number of bytes the key is stored in. The weight is different to the
+length since sometimes additionally to the key itself it is necessary to store some extra
+information, like the key length or the ending zero byte. <i><font face="Symbol">m</font>(k)
+</i>denotes the weight of the key <i>k</i>, and <i><font face="Symbol">m</font><sub>max</sub>(K)</i>
+denotes the maximal weight of a key in the key set <i>K</i>. </p>
+
+<p align="JUSTIFY"><font face="Courier New" size="2"><font face="Courier New" size="2">A
+S(b)-tree (read as sweep b tree) is characterized by the following three parameters:</font></font>
+
+<ol>
+  <i>
+  <li>b </i>– the <b>locality parameter,</b><i></li>
+  <li>q</i> – the tree <b>order</b>, and</li>
+  <li><i>p </i>– the tree <b>rank</b>.</li>
+</ol>
+
+<p align="JUSTIFY">The tree order <i>q</i> specifies the minimal number of keys in a
+none-root node of the tree. The root must contain at least one key. The tree rank <i>p</i>
+specifies the maximal total weight of keys in a node. We say that a tree node <i>S</i> is <b>well
+formed</b> if the number of keys <i>|S| &gt;= q</i> (<em>|S| &gt;= 1</em><i> </i>for the
+root), and if the total weight of the node <em><font face="Symbol">M</font>(S) &lt;= p</em>.</p>
+
+<p align="JUSTIFY"><font face="Courier New" size="2"><font face="Courier New" size="2">To
+provide tight packing of keys a S(b)-tree must satisfy an <b>incompressibility property</b>.
+Let us consider <i>b+1</i> adjacent nodes of the same level of the tree, and <i>b</i> <b>delimiting
+keys, </b>that separate the references to the adjacent nodes in the nodes’ parents. This
+collection of nodes, and their delimiting keys is called a <b>sweep</b>, and <i>b</i> is
+defined to be the length of the sweep. The sweep of length <i>b</i> is called <b>compressible</b>
+if one can construct a sweep of length <i>b-1</i> containing all the keys of the initial
+sweep, and composed of <i>b</i> well-formed nodes, and <i>b-1 </i>delimiting keys.
+Otherwise, the sweep is called <b>incompressible</b>. Thus the <b>tree is incompressible</b>
+if any sweep of length <i>b</i> in it is incompressible.</font></font></p>
+
+<p align="JUSTIFY">A S(b)-tree of order <i>q</i>, and rank <i>p</i> is a structured tree
+incompressible with respect to the locality parameter <i>b</i>.</p>
+
+<p align="JUSTIFY">The following restrictions must hold to provide correctness of the
+algorithms for S(b)-trees. 
+
+<ol>
+  <i>
+  <li>b &gt;= 0</li>
+  <li>q &gt;= b; q &gt;= 1</li>
+  </i>
+  <li>p &gt;= 2q <i><font face="Symbol">m</font><sub>max</sub>(K)</i></li>
+</ol>
+
+<p align="center"></font><!--webbot bot="Navigation" s-type="siblings" s-orientation="horizontal" s-rendering="graphics" b-include-home="FALSE" b-include-up="FALSE" startspan --><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/introduction.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="introduction.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/balanced.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="balanced.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/b-trees.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="b-trees.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbp.gif"><param name="hoverImage" value="_themes/nature/nahbp.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/s(b)-trees.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/utilization.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="utilization.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/algorithms.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="algorithms.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/interface.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="interface.htm"><param name="bgColor" value="#ffffff"></applet><applet code="fphover.class" codebase="_fpclass" width="140" height="60"><param name="image" value="_themes/nature/nahbs.gif"><param name="hoverImage" value="_themes/nature/nahbh.gif"><param name="font" value="TextMask"><param name="text" value="_overlay/specs.htm_nav_nature010_hbtn.gif"><param name="textColor" value="#333399"><param name="textAlign" value="center"><param name="textVAlign" value="middle"><param name="url" value="specs.htm"><param name="bgColor" value="#ffffff"></applet><!--webbot bot="Navigation" endspan i-checksum="26763" --> 
+<!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<div align="center"><center>
+
+<address>
+  <font face="Courier New" size="2" color="#008000"><strong>Last update: 12/24/97 by</strong></font><br>
+  <font size="2"><a href="mailto:" style="color: rgb(0,0,255)">Konstantin
+  Shvachko: </a> </font>
+</address>
+</center></div>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--mstheme--></font></body>
+</html>

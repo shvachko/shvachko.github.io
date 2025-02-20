@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>theme template</title>
+<style>
+<!--
+
+.mstheme
+{
+	separator-image: url(narule.gif);
+	list-image-1: url(nabull1.gif);
+	list-image-2: url(nabull2.gif);
+	list-image-3: url(nabull3.gif);
+
+	nav-banner-image: url(nabnr.gif);
+
+	navbutton-horiz-normal: url(naphb.gif);
+	navbutton-horiz-pushed: url(naphbp.gif);
+
+	navbutton-vert-normal: url(napvb.gif);
+	navbutton-vert-pushed: url(napvbp.gif);
+
+	navbutton-home-normal: url(nahome.gif);
+
+	navbutton-next-normal: url(nanext.gif);
+
+	navbutton-prev-normal: url(naprev.gif);
+
+	navbutton-up-normal: url(naup.gif);
+
+}
+
+.mstheme-bannertxt
+{
+	font-family: arial;
+	color: rgb(51,51,153);
+	text-align: center;
+	vertical-align: middle;
+}
+.mstheme-horiz-navtxt
+{
+	font-family: arial narrow;
+	font-weight: bold;
+	color: rgb(51,51,153);
+	text-align: center;
+	vertical-align: middle;
+}
+
+.mstheme-vert-navtxt
+{
+	font-family: arial narrow;
+	font-weight: bold;
+	color: rgb(51,51,153);
+	text-align: center;
+	vertical-align: middle;
+}
+
+.mstheme-navtxthome
+{
+	font-family: arial;
+	font-weight: bold;
+	color: rgb(51,51,153);
+	text-align: center;
+	vertical-align: middle;
+}
+
+.mstheme-navtxtnext
+{
+	font-family: arial;
+	font-weight: bold;
+	color: rgb(51,51,153);
+	text-align: center;
+	vertical-align: middle;
+}
+
+.mstheme-navtxtprev
+{
+	font-family: arial;
+	font-weight: bold;
+	color: rgb(51,51,153);
+	text-align: center;
+	vertical-align: middle;
+}
+
+.mstheme-navtxtup
+{
+	font-family: arial;
+	font-weight: bold;
+	color: rgb(51,51,153);
+	text-align: center;
+	vertical-align: middle;
+}
+
+!-->
+</style>
+</head>
+
+<body>
+
+<p>This is a FrontPage theme template file. </p>
+</body>
+</html>

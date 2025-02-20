@@ -1,0 +1,85 @@
+<HEAD>
+<TITLE>Konstantin Shvachko's Ph.D. Thesis</TITLE>
+</HEAD>
+
+<H2>Ph.D Thesis Summary</H2>
+<H3>Konstantin V. Shvachko</H3>
+
+
+ My Ph.D Thesis consists of two general parts.<p>
+
+<DD><H4> Part 1.</H4>
+ <em> Kolmogorov - Uspensky machines</em> (KUM) and
+ <em> storage modification machines</em> (SMM) are the well-known
+ modifications of <em> pointer machines</em>.<p>
+
+ It is an open problem, stated by A.Sch\"onhage in 1980, whether
+ SMMs are more powerful than KUMs.
+ It is easy to see that SMMs are not weaker than KUMs, i.e., KUMs
+ can be <em> real-time simulated</em> by SMMs.
+ The converse problem is hard and open for today.
+ The difficulty here is that the storage graph of an SMM, being a directed
+ graph, can have unbounded in-degree, while for KUMs having an
+ undirected graph storage this is impossible.<p>
+
+ I consider three computational models. Two of them are modifications
+ of <em> tree pointer machines</em> (TPM), which can be viewed as special cases
+ of KUMs. The third model is a variant of Turing machines with the
+ tree-like storage (TTM).
+ I prove that under some (natural) restriction, TPMs and TTMs
+ cannot recognize in real time some language, which is real-time
+ recognizable by SMMs under the same restriction.<p>
+
+ I consider machines recognizing the so-called <em> query languages</em>
+ composed of words of the form B$w, where B is supposed to be
+ a code of some database, and w is a query to the database.
+ The restriction is that a machine recognizing a word B$w switches
+ to the read-only mode when it works on the part w of the input word.<p>
+
+ These results were reported on the International Conference
+``Mathematical Foundations of Computer Science'', Poland, 1991.<p>
+
+<DD><H4> Part 2</H4>
+ addresses the problem of <em> maintaining a dynamic dictionary</em>,
+ which is a data structure for storing dictionary elements, called
+ keys, together with algorithms of search, insertion, and deletion.<p>
+
+ B-trees are the standard data structure for representing
+ dynamic dictionaries. The main disadvantage of B-trees is that their
+ memory <em> utilization</em> is low, when the lengths of keys stored in a
+ B-tree differ greatly from each other.<p>
+
+ I consider a new type of balanced trees, called S(b)-trees, which
+ efficiently maintain variable length keys. The difference with B-trees
+ is that a node capacity for S(b)-trees is evaluated by the total length
+ of keys stored in one node, rather than by their number as in B-trees.
+ The balance condition for S(b)-trees is that any sequence consisting of
+ b+1 neighboring nodes of the tree cannot be compressed into b
+ well-formed nodes.<p>
+
+ The main results are:
+<UL>
+<LI>  S(b)-trees generalize B-trees:
+       B-tree is a special case of S(0)-tree.
+<LI>  S(b)-trees form a hierarchy by the parameter b.
+       That is if b < b' then the class of S(b')-trees is strictly
+       contained in the class of S(b)-trees.
+<LI>  A 1 - e utilization lower bound is proved for S(b)-trees,
+       where e is inversely proportional to b.
+<LI>  Logarithmic running time algorithms of search, insertion, and
+       deletion for the class of S(b)-trees are presented.
+       The correctness of the algorithms is proved.
+</UL>
+
+ The results were reported on a number of conferences, including
+ ``International Conference on Database Theory'', Berlin, Germany, 1992.
+
+
+<HR ALIGN=CENTER WIDTH=50%>
+<CENTER>
+Last modified 22 March 1996<BR>
+<EM><A HREF="mailto:shv@namesys.botik.ru">shv@namesys.botik.ru</A></EM>
+</CENTER>
+
+</BODY>
+</HTML>

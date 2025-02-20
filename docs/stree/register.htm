@@ -1,0 +1,106 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Register Form</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+
+
+<meta name="Microsoft Theme" content="nature 011, default"><meta name="Microsoft Border" content="tb"></head>
+
+<body background="_themes/nature/nabkgnd.gif" bgcolor="#FFFFFF" text="#000000" link="#FF6600" vlink="#660099" alink="#00CC00"><!--mstheme--><font face="trebuchet ms"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><img src="_derived/register.htm_cmp_nature010_bnr.gif" width="600" height="60" border="0" alt="Register Form"></p>
+
+<p align="center" style="padding-top: -5px; padding-bottom: -10px"><font face="Arial"><a href="Default.htm" style="color: rgb(0,0,255)">Home</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">PSI RAS</a> | <a href="http://www.botik.ru/PSI/PSI.html" style="color: rgb(0,0,255)">RCIS</a> | <a href="Default.htm" style="color: rgb(0,0,255)">S-Tree Lib</font></a></p>
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><!--msnavigation--><td valign="top">
+<font face="Courier New" size="2">Please provide us with the following information in case
+we need to contact you: 
+
+<!--webbot bot="GeneratedScript" preview=" " startspan --><script language="JavaScript"><!--
+function FrontPage_Form1_Validator(theForm)
+{
+
+  if (theForm.UserName.value == "")
+  {
+    alert("Please enter a value for the \"Name\" field.");
+    theForm.UserName.focus();
+    return (false);
+  }
+
+  if (theForm.UserName.value.length < 2)
+  {
+    alert("Please enter at least 2 characters in the \"Name\" field.");
+    theForm.UserName.focus();
+    return (false);
+  }
+
+  if (theForm.UserName.value.length > 256)
+  {
+    alert("Please enter at most 256 characters in the \"Name\" field.");
+    theForm.UserName.focus();
+    return (false);
+  }
+
+  if (theForm.UserCompany.value == "")
+  {
+    alert("Please enter a value for the \"Company\" field.");
+    theForm.UserCompany.focus();
+    return (false);
+  }
+
+  if (theForm.UserCompany.value.length > 256)
+  {
+    alert("Please enter at most 256 characters in the \"Company\" field.");
+    theForm.UserCompany.focus();
+    return (false);
+  }
+
+  if (theForm.UserEmail.value == "")
+  {
+    alert("Please enter a value for the \"E-mail\" field.");
+    theForm.UserEmail.focus();
+    return (false);
+  }
+
+  if (theForm.UserEmail.value.length < 5)
+  {
+    alert("Please enter at least 5 characters in the \"E-mail\" field.");
+    theForm.UserEmail.focus();
+    return (false);
+  }
+
+  if (theForm.UserEmail.value.length > 256)
+  {
+    alert("Please enter at most 256 characters in the \"E-mail\" field.");
+    theForm.UserEmail.focus();
+    return (false);
+  }
+  return (true);
+}
+//--></script><!--webbot bot="GeneratedScript" endspan --><form method="POST"
+action="download.cgi" onsubmit="return FrontPage_Form1_Validator(this)" name="FrontPage_Form1" webbot-action="--WEBBOT-SELF--">
+  <!--webbot bot="SaveResults" u-file="userlist.htm" s-format="HTML/BR" s-label-fields="TRUE" b-reverse-chronology="FALSE" s-builtin-fields="Date Time REMOTE_NAME REMOTE_USER HTTP_USER_AGENT" s-form-fields="UserName UserCompany UserPosition UserEmail UserAddress UserPhone " u-confirmation-url="download.htm" startspan --><input type="hidden" name="VTI-GROUP" value="0"><!--webbot bot="SaveResults" endspan i-checksum="61262" --><!--mstheme--></font><pre><font face="Courier New" size="3">Name:    <!--webbot bot="Validation" s-display-name="Name" s-data-type="String" b-value-required="TRUE" i-minimum-length="2" i-maximum-length="256" --><input type="text" name="UserName" size="20" maxlength="256"> *
+Company: <!--webbot bot="Validation" s-display-name="Company" s-data-type="String" b-value-required="TRUE" i-maximum-length="256" --><input type="text" name="UserCompany" size="20" maxlength="256"> *
+Position:<input type="text" name="UserPosition" size="20" maxlength="256">
+E-mail:  <!--webbot bot="Validation" s-display-name="E-mail" b-value-required="TRUE" i-minimum-length="5" i-maximum-length="256" --><input type="text" name="UserEmail" size="20" maxlength="256"> *
+Address: <input type="text" name="UserAddress" size="20" maxlength="256">
+Phone:   <input type="text" name="UserPhone" size="20" maxlength="256"></font></pre><!--mstheme--><font face="trebuchet ms">
+  <p><input type="submit" value="Download now" name="Download"> <input type="reset" value="Clear Form" name="Clear"></font></p>
+</form>
+
+<!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="trebuchet ms">
+
+<!--msthemeseparator--><p align="center"><img src="_themes/nature/anarule.gif" width="300" height="10"></p>
+<div align="center"><center>
+
+<address>
+  <font face="Courier New" size="2" color="#008000"><strong>Last update: 15/01/98 by</strong></font><br>
+  <font size="2"><a href="mailto:" style="color: rgb(0,0,255)">Konstantin
+  Shvachko: </a> </font>
+</address>
+</center></div>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--mstheme--></font></body>
+</html>
